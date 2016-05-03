@@ -8,6 +8,7 @@ Revision History:
 2016-03-07 Created by Fibo Lu
 
 --*/
+#include "inc\R5F100BD_BranchTable.h"
 #include "r_cg_macrodriver.h"
 #include <string.h>
 #include "r_cg_port.h"
@@ -15,6 +16,10 @@ Revision History:
 #include "r_cg_serial.h"
 #include "utility.h"
 #include "uart_manager.h"
+//#include "inc\R5F100BD_BranchTable.h"
+
+extern MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num);
+extern void uartStationPutAndroidRxDataEx(unsigned char data);
 
 //fridge --   UART0
 //android °å -- UART1
@@ -33,6 +38,13 @@ void androidUartCallbackSendend()
 {
 	gAndroidUartTxLen = 0x00;
 }
+
+
+void uartStationPutAndroidRxData(unsigned char data)
+{
+	uartStationPutAndroidRxDataEx(data);
+}
+
 
 
 void FridgeUartCallbackSendend()
@@ -58,7 +70,7 @@ unsigned char androidUartSend(unsigned char *buffer, unsigned char length, unsig
 			return MD_ERROR;
 	}
 
-	memcpy(gAndroidUartTxBuffer, buffer, length);
+	memcpyEx(gAndroidUartTxBuffer, buffer, length);
 
 	gAndroidUartTxLen = 1;
 	R_UART1_Send(gAndroidUartTxBuffer, length);
@@ -85,7 +97,7 @@ unsigned char fridegUartSend(unsigned char *buffer, unsigned char length, unsign
 			return MD_ERROR;
 	}
 
-	memcpy(gFridegUartTxBuffer, buffer, length);
+	memcpyEx(gFridegUartTxBuffer, buffer, length);
 
 	gFridgeUartTxLen = 1;
 	R_UART0_Send(gFridegUartTxBuffer, length);

@@ -21,6 +21,7 @@ Revision History:
 #include "angle_as5600.h"
 #include "sensor_map.h"
 #include "uart_manager.h"
+#include "utility.h"
 
 typedef enum tagFGCP_REPORT_STATE
 {
@@ -96,6 +97,20 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 	dataBuf[8] = (unsigned char)value;
 	dataBuf[9] = (unsigned char)(value >> 8);
 
+	value = gInfraredHumanValve;
+	dataBuf[10] = (unsigned char)value;
+	dataBuf[11] = (unsigned char)(value >> 8);
+
+	dataBuf[12] = (unsigned char)(FIRMWARE_VERSION);
+
+	value = gInfraredHumanDistanceTick;
+	dataBuf[13] = (unsigned char)value;
+	dataBuf[14] = (unsigned char)(value >> 8);
+
+	dataBuf[15] = (unsigned char)(gCamera0PhotoDegree / 10);
+	dataBuf[16] = (unsigned char)(gCamera1PhotoDegree / 10);
+
+	dataBuf[17] = (unsigned char)(gAS5600I2CErrorCount);
 }
 
 
@@ -130,12 +145,12 @@ static void fgcpReport0xED()
 
 static void fgcpReport0x78()
 {
-	unsigned char messageBuf[24];
+	unsigned char messageBuf[30];
 
 	fill_0x78_MessageData(messageBuf);
-	createFGCPMessage(messageBuf, 0x78, 0, 10);
+	createFGCPMessage(messageBuf, 0x78, 0, 18);
 	
-	if (androidUartSend(messageBuf, FGCP_PACKAGE_INFO_BYTES + 10, 1) == MD_OK)
+	if (androidUartSend(messageBuf, FGCP_PACKAGE_INFO_BYTES + 18, 1) == MD_OK)
 	{
 		gFGCPeportNeedFlag &= (unsigned char)(~FGCP_REPORT_NEED_FLAG_0X78);
 	}
@@ -180,7 +195,7 @@ static void fgcpReportStateMachineIdleProcess()
 	}
 	else if (((gMcuState == MCU_STATE_TEST) && overTickCount(gFGCPReportTestTickSecond, 200)) 
 		|| (gFGCPeportNeedFlag & FGCP_REPORT_NEED_FLAG_0X78))
-//	else if (overTickCount(gFGCPReportTestTickSecond, 2000))
+//	else if (overTickCount(gFGCPReportTestTickSecond, 500))
 	{
 		//fgcpReportTest();
 		fgcpReport0x78();

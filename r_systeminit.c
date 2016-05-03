@@ -23,7 +23,7 @@
 * Device(s)    : R5F100BD
 * Tool-Chain   : CA78K0R
 * Description  : This file implements system initializing function.
-* Creation Date: 2016/3/20
+* Creation Date: 2016/3/30
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -79,7 +79,7 @@ void R_Systeminit(void)
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
-void hdwinit(void)
+void flash_hdwinit(void)
 {
     DI();
     R_Systeminit();

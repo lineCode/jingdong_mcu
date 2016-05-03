@@ -23,7 +23,6 @@ Revision History:
 #include "fgcp.h"
 
 
-
 unsigned char FGCPGetMessageCheck(unsigned char *messageBuf)
 {
 	unsigned char check;
@@ -59,40 +58,6 @@ unsigned char FGCPMessageCheck(unsigned char *messageBuf)
 		return MD_ERROR1;
 
 	return MD_OK;
-}
-
-
-void createFGCPACKMessage(unsigned char *messageBuf, unsigned char *data, unsigned char dataLength)
-{
-	FGCP_DATA_HEADR* header = (FGCP_DATA_HEADR*)messageBuf;
-
-	header->mLength = (FGCP_PACKAGE_INFO_BYTES - 1) + dataLength;
-	memcpy(messageBuf + FGCP_HEADER_BYTES, data, dataLength);
-	messageBuf[header->mLength] = FGCPGetMessageCheck(messageBuf);
-}
-
-
-void createFGCPMessage(unsigned char *messageBuf, unsigned char messageType, unsigned char *data, unsigned char dataLength)
-{
-	int i;
-	unsigned char *messageData;
-	FGCP_DATA_HEADR* header = (FGCP_DATA_HEADR*)messageBuf;
-
-	header->mSyncHeader = 0xAA;
-	header->mLength = (FGCP_PACKAGE_INFO_BYTES - 1) + dataLength;
-	header->mAppliances = 0xCA;
-	header->mFrameSyncCheck = header->mLength ^ header->mAppliances;
-	header->mReserve1 = 0;
-	header->mReserve2 = 0;
-	header->mMessageId = 0;
-	header->mFrameworkVersion = 0;
-	header->mFrameApplianceProtocolVersion = 0;
-	header->mMessageType = messageType;
-
-	if (data)
-		memcpy(messageBuf + FGCP_HEADER_BYTES, data, dataLength);
-
-	messageBuf[header->mLength] = FGCPGetMessageCheck(messageBuf);
 }
 
 
@@ -145,6 +110,44 @@ void FGCPStateMachine(FGCP_STATE_MACHINE *stateMachine, unsigned char rxData)
 		break;
 	}
 }
+
+
+void createFGCPACKMessage(unsigned char *messageBuf, unsigned char *data, unsigned char dataLength)
+{
+	FGCP_DATA_HEADR* header = (FGCP_DATA_HEADR*)messageBuf;
+
+	header->mLength = (FGCP_PACKAGE_INFO_BYTES - 1) + dataLength;
+	header->mFrameSyncCheck = header->mLength ^ header->mAppliances;
+	
+	memcpyEx(messageBuf + FGCP_HEADER_BYTES, data, dataLength);
+	messageBuf[header->mLength] = FGCPGetMessageCheck(messageBuf);
+}
+
+
+void createFGCPMessage(unsigned char *messageBuf, unsigned char messageType, unsigned char *data, unsigned char dataLength)
+{
+	int i;
+	unsigned char *messageData;
+	FGCP_DATA_HEADR* header = (FGCP_DATA_HEADR*)messageBuf;
+
+	header->mSyncHeader = 0xAA;
+	header->mLength = (FGCP_PACKAGE_INFO_BYTES - 1) + dataLength;
+	header->mAppliances = 0xCA;
+	header->mFrameSyncCheck = header->mLength ^ header->mAppliances;
+	header->mReserve1 = 0;
+	header->mReserve2 = 0;
+	header->mMessageId = 0;
+	header->mFrameworkVersion = 0;
+	header->mFrameApplianceProtocolVersion = 0;
+	header->mMessageType = messageType;
+
+	if (data)
+		memcpyEx(messageBuf + FGCP_HEADER_BYTES, data, dataLength);
+
+	messageBuf[header->mLength] = FGCPGetMessageCheck(messageBuf);
+}
+
+
 
 #ifndef WIN32
 void FGCProtocolInit()

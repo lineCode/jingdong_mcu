@@ -23,14 +23,13 @@
 * Device(s)    : R5F100BD
 * Tool-Chain   : CA78K0R
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2016/3/20
+* Creation Date: 2016/3/30
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
 #pragma interrupt INTTM00 r_tau0_channel0_interrupt
-#pragma interrupt INTTM01 r_tau0_channel1_interrupt
 /* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -61,19 +60,6 @@ __interrupt static void r_tau0_channel0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
 	timer0_callback();
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_tau0_channel1_interrupt
-* Description  : This function is INTTM01 interrupt service routine.
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-__interrupt static void r_tau0_channel1_interrupt(void)
-{
-    /* Start user code. Do not edit comment generated here */
-	gTickMillisecondCount += 1;
     /* End user code. Do not edit comment generated here */
 }
 

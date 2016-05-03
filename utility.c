@@ -16,23 +16,14 @@ Revision History:
 #include "utility.h"
 #include "r_cg_timer.h"
 
+
+
+#if 0
 volatile unsigned long  gTickMillisecondCount;
 
 MCU_STATE  gMcuState;
 unsigned short gMcuStateTick;
 
-void usleep(unsigned short microsecond)
-{
-	while (microsecond > 0)
-	{
-		NOP();
-		NOP();
-		NOP();
-		NOP();
-
-		microsecond--;
-	}
-}
 
 
 unsigned short getTickCount()
@@ -59,30 +50,6 @@ unsigned char overTickCount(unsigned short originTick, unsigned short distanceTi
 		return 0;
 }
 
-
-unsigned long getTickCount32()
-{
-	unsigned long count;
-
-	TMMK01 = 1U;    /* disable INTTM01 interrupt */
-	count = gTickMillisecondCount;
-	TMMK01 = 0U;    /* enable INTTM01 interrupt */
-
-	return count;
-}
-
-
-unsigned char overTickCount32(unsigned long originTick, unsigned long distanceTick)
-{
-	unsigned long currentTick = getTickCount32();
-	unsigned long diff;
-
-	diff = currentTick - originTick;
-	if (diff >= distanceTick)
-		return 1;
-	else
-		return 0;
-}
 
 
 void timeInit()
@@ -129,3 +96,47 @@ void setMcuState(MCU_STATE state)
 	gMcuState = state;
 }
 
+#endif
+
+
+extern volatile unsigned long  gTickMillisecondCount;
+
+
+unsigned long getTickCount32()
+{
+	unsigned long count;
+
+	TMMK01 = 1U;    /* disable INTTM01 interrupt */
+	count = gTickMillisecondCount;
+	TMMK01 = 0U;    /* enable INTTM01 interrupt */
+
+	return count;
+}
+
+
+unsigned char overTickCount32(unsigned long originTick, unsigned long distanceTick)
+{
+	unsigned long currentTick = getTickCount32();
+	unsigned long diff;
+
+	diff = currentTick - originTick;
+	if (diff >= distanceTick)
+		return 1;
+	else
+		return 0;
+}
+
+
+void memcpyEx(void *dest, void *src, unsigned short size)
+{
+	unsigned char *uDest = (unsigned char *)dest;
+	unsigned char *uSrc = (unsigned char *)src;
+
+	while (size > 0)
+	{
+		*uDest = *uSrc;
+		uDest++;
+		uSrc++;
+		size--;
+	}
+}

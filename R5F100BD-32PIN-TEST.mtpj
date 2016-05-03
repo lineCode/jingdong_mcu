@@ -10,6 +10,10 @@
       <Property>fb98844b-2c27-4275-9804-f6e63e204da0</Property>
       <ActiveProjectGuid>a3ec0b32-afa9-4200-91b9-381d94ad27fe</ActiveProjectGuid>
     </Instance>
+    <Instance Guid="bbf392be-9376-4aba-bf45-bd3546fe324a">
+      <DependentProjectsGuidsSourceProjectsCount>0</DependentProjectsGuidsSourceProjectsCount>
+      <Type>Data</Type>
+    </Instance>
     <Instance Guid="6a8b0829-70d3-46e5-949a-420844d9237b">
       <Name>Startup</Name>
       <Type>Category</Type>
@@ -85,14 +89,6 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
       <Property>00066874-67ff-4d77-aff8-f5c22228409f</Property>
-    </Instance>
-    <Instance Guid="51d35803-9e42-4bd5-a375-d0d6c8b125fc">
-      <Name>utility.c</Name>
-      <Type>File</Type>
-      <RelativePath>utility.c</RelativePath>
-      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
-      <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
-      <Property>bc463246-9d93-433c-b78d-244510453300</Property>
     </Instance>
     <Instance Guid="e525eaec-96d7-43d4-8c15-1bf31c6f6bed">
       <Name>utility.h</Name>
@@ -198,6 +194,36 @@
       <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
       <Property>b8dc3ec4-66e5-4198-a40f-d88fce4c0d91</Property>
     </Instance>
+    <Instance Guid="e5c8f8d1-ccad-4f19-959c-16f48efed9c9">
+      <Name>dr</Name>
+      <Type>Category</Type>
+      <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
+      <Property>a16314be-f4c9-4654-8580-1c8fb4d118a0</Property>
+    </Instance>
+    <Instance Guid="6fe34afc-01db-4b83-a7cb-5deaf202bc0b">
+      <Name>firmware.c</Name>
+      <Type>File</Type>
+      <RelativePath>firmware.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
+      <Property>9d2ca476-1a1a-436e-9ebf-3e909a0ec116</Property>
+    </Instance>
+    <Instance Guid="aa860374-67d9-42da-8dd7-ad76ae853d30">
+      <Name>utility.c</Name>
+      <Type>File</Type>
+      <RelativePath>utility.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
+      <Property>3af7fd16-9add-4aeb-b3da-5e1ad4a858d3</Property>
+    </Instance>
+    <Instance Guid="ad1e584d-639d-49cc-9743-b89a99ef81af">
+      <Name>door_calibrator.c</Name>
+      <Type>File</Type>
+      <RelativePath>door_calibrator.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>643b697e-f899-4c33-8e1e-40f3b6d3c162</ParentItem>
+      <Property>9a31e5c2-764e-49db-b446-419e0c6ba757</Property>
+    </Instance>
     <Instance Guid="2b2895f2-3752-44ee-bf75-397e3d5459d3">
       <Name>r_main.c</Name>
       <Type>File</Type>
@@ -228,6 +254,7 @@
       <RelativePath>r_cg_cgc_user.c</RelativePath>
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>a5335faa-e2a8-44b8-8594-3726b7c2bf0f</ParentItem>
+      <Property>fe6ad9de-5045-47b1-8e65-9bd80a028281</Property>
     </Instance>
     <Instance Guid="b845bef6-b745-438f-ba3f-79d74017f7f2">
       <Name>r_cg_port.c</Name>
@@ -372,6 +399,12 @@
       <ParentItem>a5335faa-e2a8-44b8-8594-3726b7c2bf0f</ParentItem>
     </Instance>
   </Class>
+  <Class Guid="9033e9fb-2b12-4437-a25e-27b28d42582b">
+    <Instance Guid="e765587f-9bc7-4b0f-9e3e-7c78bc52738d">
+      <Name>R5F100BD-32PIN-BOOT</Name>
+      <RelativePath>R5F100BD-32PIN-BOOT\R5F100BD-32PIN-BOOT.mtsp</RelativePath>
+    </Instance>
+  </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
       <MemoCount>0</MemoCount>
@@ -400,9 +433,6 @@
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="00066874-67ff-4d77-aff8-f5c22228409f">
-      <MemoCount>0</MemoCount>
-    </Instance>
-    <Instance Guid="bc463246-9d93-433c-b78d-244510453300">
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="d3a553db-85ec-4dbd-8123-b73f639eeebe">
@@ -444,6 +474,15 @@
     <Instance Guid="b8dc3ec4-66e5-4198-a40f-d88fce4c0d91">
       <MemoCount>0</MemoCount>
     </Instance>
+    <Instance Guid="9d2ca476-1a1a-436e-9ebf-3e909a0ec116">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="3af7fd16-9add-4aeb-b3da-5e1ad4a858d3">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="9a31e5c2-764e-49db-b446-419e0c6ba757">
+      <MemoCount>0</MemoCount>
+    </Instance>
     <Instance Guid="8cf97af7-f86c-42fe-8df1-9bc69794a658">
       <MemoCount>0</MemoCount>
     </Instance>
@@ -451,6 +490,9 @@
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="e9d356f6-2ab5-43e0-954f-91e9a88ff0da">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="fe6ad9de-5045-47b1-8e65-9bd80a028281">
       <MemoCount>0</MemoCount>
     </Instance>
     <Instance Guid="fae37f53-811f-4441-9bbb-23ccec573433">
@@ -506,6 +548,9 @@
     <Instance Guid="06a3fdca-efb0-4193-8c3d-b7113d5e7c4e">
       <MemoCount>0</MemoCount>
     </Instance>
+    <Instance Guid="a16314be-f4c9-4654-8580-1c8fb4d118a0">
+      <MemoCount>0</MemoCount>
+    </Instance>
   </Class>
   <Class Guid="8fb9c1f6-d351-4d10-8d99-bf5b3015b84c">
     <Instance Guid="00000000-0000-0000-0000-000000000000">
@@ -552,53 +597,57 @@
       <SourceItemType2>CSource</SourceItemType2>
       <SourceItemGuid3>43e804f1-f0fb-4306-a4c3-51e2e6e8d364</SourceItemGuid3>
       <SourceItemType3>CSource</SourceItemType3>
-      <SourceItemGuid4>51d35803-9e42-4bd5-a375-d0d6c8b125fc</SourceItemGuid4>
+      <SourceItemGuid4>6c746222-6434-42be-9374-cacb18fd7e74</SourceItemGuid4>
       <SourceItemType4>CSource</SourceItemType4>
-      <SourceItemGuid5>6c746222-6434-42be-9374-cacb18fd7e74</SourceItemGuid5>
+      <SourceItemGuid5>94fc96ac-06cf-49f9-ace4-a977dd1fe7dc</SourceItemGuid5>
       <SourceItemType5>CSource</SourceItemType5>
-      <SourceItemGuid6>94fc96ac-06cf-49f9-ace4-a977dd1fe7dc</SourceItemGuid6>
+      <SourceItemGuid6>c172152b-83b4-4bb9-a50e-116b9a6d8ed1</SourceItemGuid6>
       <SourceItemType6>CSource</SourceItemType6>
-      <SourceItemGuid7>c172152b-83b4-4bb9-a50e-116b9a6d8ed1</SourceItemGuid7>
+      <SourceItemGuid7>4bc96c10-9a3f-42ef-b66c-b25cc5dbb3dc</SourceItemGuid7>
       <SourceItemType7>CSource</SourceItemType7>
-      <SourceItemGuid8>4bc96c10-9a3f-42ef-b66c-b25cc5dbb3dc</SourceItemGuid8>
+      <SourceItemGuid8>9489ef88-a6b3-4649-b433-e83f6f67458b</SourceItemGuid8>
       <SourceItemType8>CSource</SourceItemType8>
-      <SourceItemGuid9>9489ef88-a6b3-4649-b433-e83f6f67458b</SourceItemGuid9>
+      <SourceItemGuid9>fcc7e4ee-ca93-4a19-80c7-d5deadc66234</SourceItemGuid9>
       <SourceItemType9>CSource</SourceItemType9>
-      <SourceItemGuid10>fcc7e4ee-ca93-4a19-80c7-d5deadc66234</SourceItemGuid10>
+      <SourceItemGuid10>465c8824-ba47-45c2-9e82-dc27143fc341</SourceItemGuid10>
       <SourceItemType10>CSource</SourceItemType10>
-      <SourceItemGuid11>465c8824-ba47-45c2-9e82-dc27143fc341</SourceItemGuid11>
+      <SourceItemGuid11>d333c111-17c1-4d4a-a8e0-e23f59906f3d</SourceItemGuid11>
       <SourceItemType11>CSource</SourceItemType11>
-      <SourceItemGuid12>d333c111-17c1-4d4a-a8e0-e23f59906f3d</SourceItemGuid12>
+      <SourceItemGuid12>6fe34afc-01db-4b83-a7cb-5deaf202bc0b</SourceItemGuid12>
       <SourceItemType12>CSource</SourceItemType12>
-      <SourceItemGuid13>2b2895f2-3752-44ee-bf75-397e3d5459d3</SourceItemGuid13>
+      <SourceItemGuid13>aa860374-67d9-42da-8dd7-ad76ae853d30</SourceItemGuid13>
       <SourceItemType13>CSource</SourceItemType13>
-      <SourceItemGuid14>c379b8ea-ed74-4c8f-9c1a-5d1e14191a1d</SourceItemGuid14>
+      <SourceItemGuid14>ad1e584d-639d-49cc-9743-b89a99ef81af</SourceItemGuid14>
       <SourceItemType14>CSource</SourceItemType14>
-      <SourceItemGuid15>bacfc8e4-c0bb-4bf5-b50f-6cf892f3cab2</SourceItemGuid15>
+      <SourceItemGuid15>2b2895f2-3752-44ee-bf75-397e3d5459d3</SourceItemGuid15>
       <SourceItemType15>CSource</SourceItemType15>
-      <SourceItemGuid16>d7976323-c0f2-4a7b-8b12-250a60a412fe</SourceItemGuid16>
+      <SourceItemGuid16>c379b8ea-ed74-4c8f-9c1a-5d1e14191a1d</SourceItemGuid16>
       <SourceItemType16>CSource</SourceItemType16>
-      <SourceItemGuid17>b845bef6-b745-438f-ba3f-79d74017f7f2</SourceItemGuid17>
+      <SourceItemGuid17>bacfc8e4-c0bb-4bf5-b50f-6cf892f3cab2</SourceItemGuid17>
       <SourceItemType17>CSource</SourceItemType17>
-      <SourceItemGuid18>eb518436-be56-48f4-b229-8895a032e888</SourceItemGuid18>
+      <SourceItemGuid18>d7976323-c0f2-4a7b-8b12-250a60a412fe</SourceItemGuid18>
       <SourceItemType18>CSource</SourceItemType18>
-      <SourceItemGuid19>ae78bdbf-4709-486f-9567-d9f07c712a45</SourceItemGuid19>
+      <SourceItemGuid19>b845bef6-b745-438f-ba3f-79d74017f7f2</SourceItemGuid19>
       <SourceItemType19>CSource</SourceItemType19>
-      <SourceItemGuid20>824c112a-0846-450d-9fd8-9f37360ec0a4</SourceItemGuid20>
+      <SourceItemGuid20>eb518436-be56-48f4-b229-8895a032e888</SourceItemGuid20>
       <SourceItemType20>CSource</SourceItemType20>
-      <SourceItemGuid21>f4558327-f202-4d2d-be98-6a27b54da42f</SourceItemGuid21>
+      <SourceItemGuid21>ae78bdbf-4709-486f-9567-d9f07c712a45</SourceItemGuid21>
       <SourceItemType21>CSource</SourceItemType21>
-      <SourceItemGuid22>44cc566e-4560-4ee8-adaf-b62f48fd9a2f</SourceItemGuid22>
+      <SourceItemGuid22>824c112a-0846-450d-9fd8-9f37360ec0a4</SourceItemGuid22>
       <SourceItemType22>CSource</SourceItemType22>
-      <SourceItemGuid23>82e36f08-ed2f-46bb-a113-8faf8bd9b7c3</SourceItemGuid23>
+      <SourceItemGuid23>f4558327-f202-4d2d-be98-6a27b54da42f</SourceItemGuid23>
       <SourceItemType23>CSource</SourceItemType23>
-      <SourceItemGuid24>c6f63c95-aa60-45b6-9877-fcca012015e1</SourceItemGuid24>
+      <SourceItemGuid24>44cc566e-4560-4ee8-adaf-b62f48fd9a2f</SourceItemGuid24>
       <SourceItemType24>CSource</SourceItemType24>
-      <SourceItemGuid25>b806c05a-6af1-44c5-8a10-a1cc0cf2ffc9</SourceItemGuid25>
+      <SourceItemGuid25>82e36f08-ed2f-46bb-a113-8faf8bd9b7c3</SourceItemGuid25>
       <SourceItemType25>CSource</SourceItemType25>
-      <SourceItemGuid26>e21cb945-3cfd-400a-aec0-ce7991fa4903</SourceItemGuid26>
+      <SourceItemGuid26>c6f63c95-aa60-45b6-9877-fcca012015e1</SourceItemGuid26>
       <SourceItemType26>CSource</SourceItemType26>
-      <SourceItemCount>27</SourceItemCount>
+      <SourceItemGuid27>b806c05a-6af1-44c5-8a10-a1cc0cf2ffc9</SourceItemGuid27>
+      <SourceItemType27>CSource</SourceItemType27>
+      <SourceItemGuid28>e21cb945-3cfd-400a-aec0-ce7991fa4903</SourceItemGuid28>
+      <SourceItemType28>CSource</SourceItemType28>
+      <SourceItemCount>29</SourceItemCount>
       <VfiSourceItemCount>0</VfiSourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
@@ -665,7 +714,7 @@
       <Optimization-DefaultValue>Standard</Optimization-DefaultValue>
       <PreCompileCommands-DefaultValue />
       <PreprocessListFile-DefaultValue>False</PreprocessListFile-DefaultValue>
-      <ProvidedStartup-DefaultValue>Normal</ProvidedStartup-DefaultValue>
+      <ProvidedStartup-DefaultValue>Flash</ProvidedStartup-DefaultValue>
       <StandardLibrary-DefaultValue>True</StandardLibrary-DefaultValue>
       <VariableInformationFile-DefaultValue />
       <VerboseMode-DefaultValue>False</VerboseMode-DefaultValue>
@@ -694,7 +743,7 @@
       <MacroUndefinitions-DefaultValue />
       <Multiplier-DefaultValue>True</Multiplier-DefaultValue>
       <MultiplierAndDivider-DefaultValue>True</MultiplierAndDivider-DefaultValue>
-      <StandardStartupFileName-DefaultValue>s0rll.rel</StandardStartupFileName-DefaultValue>
+      <StandardStartupFileName-DefaultValue>s0rlle.rel</StandardStartupFileName-DefaultValue>
       <StartAddressOfFlashAreaBranchTable-DefaultValue />
       <CharToUnsignedChar-DefaultValue>False</CharToUnsignedChar-DefaultValue>
       <ExpansionOfIncludePreprocessDirective-DefaultValue>False</ExpansionOfIncludePreprocessDirective-DefaultValue>
@@ -704,9 +753,9 @@
       <BranchInstructionOptimization-DefaultValue>True</BranchInstructionOptimization-DefaultValue>
       <ExpansionOfLinePreprocessDirective-DefaultValue>True</ExpansionOfLinePreprocessDirective-DefaultValue>
       <ExternalVariablesToShortAddressing-DefaultValue>NotAllocate</ExternalVariablesToShortAddressing-DefaultValue>
-      <StandardLibraryFileNames-DefaultValue>cl0ram.lib
-cl0rm.lib
-cl0rmf.lib
+      <StandardLibraryFileNames-DefaultValue>cl0rame.lib
+cl0rme.lib
+cl0rmfe.lib
 </StandardLibraryFileNames-DefaultValue>
       <DestinationAreaOfRomData-DefaultValue>No</DestinationAreaOfRomData-DefaultValue>
       <DisablementOfIntExtensionForFunction-DefaultValue>False</DisablementOfIntExtensionForFunction-DefaultValue>
@@ -722,7 +771,7 @@ cl0rmf.lib
       <NumberOfLinesPerPage-DefaultValue>0</NumberOfLinesPerPage-DefaultValue>
       <TabWidth-DefaultValue>8</TabWidth-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8587444644754497617</TimeTagModified--0>
+      <TimeTagModified--0>-8587422897314913976</TimeTagModified--0>
       <AdditionalIncludePaths-0>.
 </AdditionalIncludePaths-0>
       <AssemblyFile-0>NotOutput</AssemblyFile-0>
@@ -732,7 +781,7 @@ cl0rmf.lib
       <Optimization-0>Standard</Optimization-0>
       <PreCompileCommands-0 />
       <PreprocessListFile-0>False</PreprocessListFile-0>
-      <ProvidedStartup-0>Normal</ProvidedStartup-0>
+      <ProvidedStartup-0>Flash</ProvidedStartup-0>
       <StandardLibrary-0>True</StandardLibrary-0>
       <VerboseMode-0>False</VerboseMode-0>
       <FixedStandardLibraryArea-0>True</FixedStandardLibraryArea-0>
@@ -752,7 +801,7 @@ cl0rmf.lib
       <MacroUndefinitions-0 />
       <Multiplier-0>True</Multiplier-0>
       <MultiplierAndDivider-0>True</MultiplierAndDivider-0>
-      <StandardStartupFileName-0>s0rll.rel</StandardStartupFileName-0>
+      <StandardStartupFileName-0>s0rlle.rel</StandardStartupFileName-0>
       <ExpansionOfIncludePreprocessDirective-0>False</ExpansionOfIncludePreprocessDirective-0>
       <StaticVariablesToShortAddressing-0>NotAllocate</StaticVariablesToShortAddressing-0>
       <ExpansionOfLinePreprocessDirective-0>True</ExpansionOfLinePreprocessDirective-0>
@@ -768,14 +817,14 @@ cl0rmf.lib
       <MemoryModelType-0>Medium</MemoryModelType-0>
       <OperationSwapping-0>Yes</OperationSwapping-0>
       <AutoVariablesToRegisterOrShortAddressing-0>True</AutoVariablesToRegisterOrShortAddressing-0>
-      <FlashObjects-0>False</FlashObjects-0>
+      <FlashObjects-0>True</FlashObjects-0>
       <VariableInformationBootAreaFile-0 />
       <FarAreaToRom-0>True</FarAreaToRom-0>
       <IndirectReferencingWithOneByte-0>False</IndirectReferencingWithOneByte-0>
       <RegisterVariablesToRegisterAndShortAddressing-0>False</RegisterVariablesToRegisterAndShortAddressing-0>
-      <StartAddressOfFlashArea-0 />
+      <StartAddressOfFlashArea-0>2000</StartAddressOfFlashArea-0>
       <DisablementOfSignExtendedCharCalculation-0>True</DisablementOfSignExtendedCharCalculation-0>
-      <StartAddressOfFlashAreaBranchTable-0 />
+      <StartAddressOfFlashAreaBranchTable-0>2000</StartAddressOfFlashAreaBranchTable-0>
       <CharToUnsignedChar-0>False</CharToUnsignedChar-0>
       <MirrorSourceArea-0>Maa0</MirrorSourceArea-0>
       <UseMultiplyAndAccumulation-0>True</UseMultiplyAndAccumulation-0>
@@ -876,7 +925,7 @@ cl0rmf.lib
       <ReserveWorkingMemoryForRrmDmm-DefaultValue>False</ReserveWorkingMemoryForRrmDmm-DefaultValue>
       <StartAddressOfWorkingMemoryForRrmDmm-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8587431684871591570</TimeTagModified--0>
+      <TimeTagModified--0>-8587422849708633896</TimeTagModified--0>
       <DebugInformation-0>True</DebugInformation-0>
       <ErrorListFile-0>False</ErrorListFile-0>
       <LibraryFiles-0 />
@@ -908,7 +957,7 @@ cl0rmf.lib
       <NumberOfLinesPerPage-0>0</NumberOfLinesPerPage-0>
       <SegmentInfoBottomOf64Kbytes-0>False</SegmentInfoBottomOf64Kbytes-0>
       <SettingOfFlashStartAddress-0>False</SettingOfFlashStartAddress-0>
-      <BootAreaModuleFile-0 />
+      <BootAreaModuleFile-0>R5F100BD-32PIN-BOOT\DefaultBuild\R5F100BD-32PIN-BOOT.lmf</BootAreaModuleFile-0>
       <AllocationControlOfSelfRandomAccessMemory-0>No</AllocationControlOfSelfRandomAccessMemory-0>
       <AllocationControlOfTraceRandomAccessMemory-0>No</AllocationControlOfTraceRandomAccessMemory-0>
       <AllocationControlOfHotPluginRandomAccessMemory-0>No</AllocationControlOfHotPluginRandomAccessMemory-0>
@@ -969,7 +1018,7 @@ cl0rmf.lib
       <HexadecimalFileFormat-DefaultValue>IntelExtended</HexadecimalFileFormat-DefaultValue>
       <SplittingOfHexadecimalFile-DefaultValue>False</SplittingOfHexadecimalFile-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8587444648811338405</TimeTagModified--0>
+      <TimeTagModified--0>-8587422167314992366</TimeTagModified--0>
       <ErrorListFile-0>False</ErrorListFile-0>
       <FillingOfFreeMemorySpace-0>True</FillingOfFreeMemorySpace-0>
       <HexadecimalFile-0>True</HexadecimalFile-0>
@@ -982,7 +1031,7 @@ cl0rmf.lib
       <HexadecimalFileName-0>%ProjectName%.hex</HexadecimalFileName-0>
       <OtherAdditionalOptions-0 />
       <FillingSize-0 />
-      <HexadecimalFileFormat-0>IntelExtended</HexadecimalFileFormat-0>
+      <HexadecimalFileFormat-0>IntelNormal</HexadecimalFileFormat-0>
       <SplittingOfHexadecimalFile-0>False</SplittingOfHexadecimalFile-0>
       <OutputCrc-0>False</OutputCrc-0>
       <CrcRange-0 />
@@ -1000,7 +1049,7 @@ cl0rmf.lib
       <NumberOfCharactersPerLine-DefaultValue>132</NumberOfCharactersPerLine-DefaultValue>
       <NumberOfLinesPerPage-DefaultValue>0</NumberOfLinesPerPage-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8587444648811298362</TimeTagModified--0>
+      <TimeTagModified--0>-8587422849708633896</TimeTagModified--0>
       <ListFile-0>False</ListFile-0>
       <OutputFolder-0>%BuildModeName%</OutputFolder-0>
       <PreLibraryCommands-0 />
@@ -1019,7 +1068,7 @@ cl0rmf.lib
       <VariableInformationFolder-DefaultValue>%BuildModeName%</VariableInformationFolder-DefaultValue>
       <VariableInformationFileName-DefaultValue>%ProjectName%.vfi</VariableInformationFileName-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8587431684871591570</TimeTagModified--0>
+      <TimeTagModified--0>-8587422849708633896</TimeTagModified--0>
       <Margin-0>0</Margin-0>
       <OutputRomRamUsage-0>False</OutputRomRamUsage-0>
       <VariableInformationFile-0>False</VariableInformationFile-0>
@@ -1122,10 +1171,6 @@ cl0rmf.lib
       <ItemAddTime>635930468603821040</ItemAddTime>
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
-    <Instance Guid="51d35803-9e42-4bd5-a375-d0d6c8b125fc">
-      <ItemAddTime>635930468603821040</ItemAddTime>
-      <ItemAddTimeCount>2</ItemAddTimeCount>
-    </Instance>
     <Instance Guid="e525eaec-96d7-43d4-8c15-1bf31c6f6bed">
       <ItemAddTime>635930468603821040</ItemAddTime>
       <ItemAddTimeCount>3</ItemAddTimeCount>
@@ -1202,6 +1247,18 @@ cl0rmf.lib
       <ItemAddTime>635940640290564957</ItemAddTime>
       <ItemAddTimeCount>0</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="6fe34afc-01db-4b83-a7cb-5deaf202bc0b">
+      <ItemAddTime>635951035835188062</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="aa860374-67d9-42da-8dd7-ad76ae853d30">
+      <ItemAddTime>635951243152767229</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="ad1e584d-639d-49cc-9743-b89a99ef81af">
+      <ItemAddTime>635975364275745236</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="fc999d8f-43d6-4cb3-af4b-cf6891d759fb">
       <TimeTagModified-SourceItem0--0>-8587442775087395351</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1219,19 +1276,19 @@ cl0rmf.lib
       <SourceItem3-IsLockedByUser>False</SourceItem3-IsLockedByUser>
       <SourceItem3-BuildingTarget-0>True</SourceItem3-BuildingTarget-0>
       <SourceItem3-IndividualCompileOption-0>False</SourceItem3-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem4--0>-8587441856250954768</TimeTagModified-SourceItem4--0>
+      <TimeTagModified-SourceItem4--0>-8587441098455342378</TimeTagModified-SourceItem4--0>
       <SourceItem4-IsLockedByUser>False</SourceItem4-IsLockedByUser>
       <SourceItem4-BuildingTarget-0>True</SourceItem4-BuildingTarget-0>
       <SourceItem4-IndividualCompileOption-0>False</SourceItem4-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem5--0>-8587441098455342378</TimeTagModified-SourceItem5--0>
+      <TimeTagModified-SourceItem5--0>-8587437593437646630</TimeTagModified-SourceItem5--0>
       <SourceItem5-IsLockedByUser>False</SourceItem5-IsLockedByUser>
       <SourceItem5-BuildingTarget-0>True</SourceItem5-BuildingTarget-0>
       <SourceItem5-IndividualCompileOption-0>False</SourceItem5-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem6--0>-8587437593437646630</TimeTagModified-SourceItem6--0>
+      <TimeTagModified-SourceItem6--0>-8587437595230840158</TimeTagModified-SourceItem6--0>
       <SourceItem6-IsLockedByUser>False</SourceItem6-IsLockedByUser>
       <SourceItem6-BuildingTarget-0>True</SourceItem6-BuildingTarget-0>
       <SourceItem6-IndividualCompileOption-0>False</SourceItem6-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem7--0>-8587437595230840158</TimeTagModified-SourceItem7--0>
+      <TimeTagModified-SourceItem7--0>-8587437595230825118</TimeTagModified-SourceItem7--0>
       <SourceItem7-IsLockedByUser>False</SourceItem7-IsLockedByUser>
       <SourceItem7-BuildingTarget-0>True</SourceItem7-BuildingTarget-0>
       <SourceItem7-IndividualCompileOption-0>False</SourceItem7-IndividualCompileOption-0>
@@ -1243,31 +1300,31 @@ cl0rmf.lib
       <SourceItem9-IsLockedByUser>False</SourceItem9-IsLockedByUser>
       <SourceItem9-BuildingTarget-0>True</SourceItem9-BuildingTarget-0>
       <SourceItem9-IndividualCompileOption-0>False</SourceItem9-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem10--0>-8587437595230825118</TimeTagModified-SourceItem10--0>
+      <TimeTagModified-SourceItem10--0>-8587437588005633715</TimeTagModified-SourceItem10--0>
       <SourceItem10-IsLockedByUser>False</SourceItem10-IsLockedByUser>
       <SourceItem10-BuildingTarget-0>True</SourceItem10-BuildingTarget-0>
       <SourceItem10-IndividualCompileOption-0>False</SourceItem10-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem11--0>-8587437588005633715</TimeTagModified-SourceItem11--0>
+      <TimeTagModified-SourceItem11--0>-8587431684564210851</TimeTagModified-SourceItem11--0>
       <SourceItem11-IsLockedByUser>False</SourceItem11-IsLockedByUser>
       <SourceItem11-BuildingTarget-0>True</SourceItem11-BuildingTarget-0>
       <SourceItem11-IndividualCompileOption-0>False</SourceItem11-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem12--0>-8587431684564210851</TimeTagModified-SourceItem12--0>
+      <TimeTagModified-SourceItem12--0>-8587421289019587746</TimeTagModified-SourceItem12--0>
       <SourceItem12-IsLockedByUser>False</SourceItem12-IsLockedByUser>
       <SourceItem12-BuildingTarget-0>True</SourceItem12-BuildingTarget-0>
       <SourceItem12-IndividualCompileOption-0>False</SourceItem12-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem13--0>-8587444644754247382</TimeTagModified-SourceItem13--0>
+      <TimeTagModified-SourceItem13--0>-8587421081702008579</TimeTagModified-SourceItem13--0>
       <SourceItem13-IsLockedByUser>False</SourceItem13-IsLockedByUser>
       <SourceItem13-BuildingTarget-0>True</SourceItem13-BuildingTarget-0>
       <SourceItem13-IndividualCompileOption-0>False</SourceItem13-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem14--0>-8587444644754227341</TimeTagModified-SourceItem14--0>
+      <TimeTagModified-SourceItem14--0>-8587396960579030572</TimeTagModified-SourceItem14--0>
       <SourceItem14-IsLockedByUser>False</SourceItem14-IsLockedByUser>
       <SourceItem14-BuildingTarget-0>True</SourceItem14-BuildingTarget-0>
       <SourceItem14-IndividualCompileOption-0>False</SourceItem14-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem15--0>-8587444644754222200</TimeTagModified-SourceItem15--0>
+      <TimeTagModified-SourceItem15--0>-8587444644754247382</TimeTagModified-SourceItem15--0>
       <SourceItem15-IsLockedByUser>False</SourceItem15-IsLockedByUser>
       <SourceItem15-BuildingTarget-0>True</SourceItem15-BuildingTarget-0>
       <SourceItem15-IndividualCompileOption-0>False</SourceItem15-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem16--0>-8587444644754222200</TimeTagModified-SourceItem16--0>
+      <TimeTagModified-SourceItem16--0>-8587444644754227341</TimeTagModified-SourceItem16--0>
       <SourceItem16-IsLockedByUser>False</SourceItem16-IsLockedByUser>
       <SourceItem16-BuildingTarget-0>True</SourceItem16-BuildingTarget-0>
       <SourceItem16-IndividualCompileOption-0>False</SourceItem16-IndividualCompileOption-0>
@@ -1287,30 +1344,38 @@ cl0rmf.lib
       <SourceItem20-IsLockedByUser>False</SourceItem20-IsLockedByUser>
       <SourceItem20-BuildingTarget-0>True</SourceItem20-BuildingTarget-0>
       <SourceItem20-IndividualCompileOption-0>False</SourceItem20-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem21--0>-8587443331380452283</TimeTagModified-SourceItem21--0>
+      <TimeTagModified-SourceItem21--0>-8587444644754222200</TimeTagModified-SourceItem21--0>
       <SourceItem21-IsLockedByUser>False</SourceItem21-IsLockedByUser>
       <SourceItem21-BuildingTarget-0>True</SourceItem21-BuildingTarget-0>
       <SourceItem21-IndividualCompileOption-0>False</SourceItem21-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem22--0>-8587443331380452283</TimeTagModified-SourceItem22--0>
+      <TimeTagModified-SourceItem22--0>-8587444644754222200</TimeTagModified-SourceItem22--0>
       <SourceItem22-IsLockedByUser>False</SourceItem22-IsLockedByUser>
       <SourceItem22-BuildingTarget-0>True</SourceItem22-BuildingTarget-0>
       <SourceItem22-IndividualCompileOption-0>False</SourceItem22-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem23--0>-8587441143466741190</TimeTagModified-SourceItem23--0>
+      <TimeTagModified-SourceItem23--0>-8587443331380452283</TimeTagModified-SourceItem23--0>
       <SourceItem23-IsLockedByUser>False</SourceItem23-IsLockedByUser>
       <SourceItem23-BuildingTarget-0>True</SourceItem23-BuildingTarget-0>
       <SourceItem23-IndividualCompileOption-0>False</SourceItem23-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem24--0>-8587441143466741190</TimeTagModified-SourceItem24--0>
+      <TimeTagModified-SourceItem24--0>-8587443331380452283</TimeTagModified-SourceItem24--0>
       <SourceItem24-IsLockedByUser>False</SourceItem24-IsLockedByUser>
       <SourceItem24-BuildingTarget-0>True</SourceItem24-BuildingTarget-0>
       <SourceItem24-IndividualCompileOption-0>False</SourceItem24-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem25--0>-8587441018907030604</TimeTagModified-SourceItem25--0>
+      <TimeTagModified-SourceItem25--0>-8587441143466741190</TimeTagModified-SourceItem25--0>
       <SourceItem25-IsLockedByUser>False</SourceItem25-IsLockedByUser>
       <SourceItem25-BuildingTarget-0>True</SourceItem25-BuildingTarget-0>
       <SourceItem25-IndividualCompileOption-0>False</SourceItem25-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem26--0>-8587441018907030604</TimeTagModified-SourceItem26--0>
+      <TimeTagModified-SourceItem26--0>-8587441143466741190</TimeTagModified-SourceItem26--0>
       <SourceItem26-IsLockedByUser>False</SourceItem26-IsLockedByUser>
       <SourceItem26-BuildingTarget-0>True</SourceItem26-BuildingTarget-0>
       <SourceItem26-IndividualCompileOption-0>False</SourceItem26-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem27--0>-8587441018907030604</TimeTagModified-SourceItem27--0>
+      <SourceItem27-IsLockedByUser>False</SourceItem27-IsLockedByUser>
+      <SourceItem27-BuildingTarget-0>True</SourceItem27-BuildingTarget-0>
+      <SourceItem27-IndividualCompileOption-0>False</SourceItem27-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem28--0>-8587441018907030604</TimeTagModified-SourceItem28--0>
+      <SourceItem28-IsLockedByUser>False</SourceItem28-IsLockedByUser>
+      <SourceItem28-BuildingTarget-0>True</SourceItem28-BuildingTarget-0>
+      <SourceItem28-IndividualCompileOption-0>False</SourceItem28-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
@@ -1321,7 +1386,20 @@ cl0rmf.lib
   </Class>
   <Class Guid="2890788c-ef94-47c1-b7a0-ea78a63c62b8">
     <Instance Guid="94bc6931-8ae1-4fe8-8c88-72587525d642">
-      <ContainLinkDirectiveData>False</ContainLinkDirectiveData>
+      <ContainLinkDirectiveData>True</ContainLinkDirectiveData>
+      <MemorySpaceCount>1</MemorySpaceCount>
+      <MemorySpaceName-0>REGULAR</MemorySpaceName-0>
+      <MemoryAreaCount>2</MemoryAreaCount>
+      <MemoryAreaName-0>ROM</MemoryAreaName-0>
+      <MemoryAreaParentMemorySpace-0>REGULAR</MemoryAreaParentMemorySpace-0>
+      <MemoryAreaStartAddress-0>0</MemoryAreaStartAddress-0>
+      <MemoryAreaSize-0>49152</MemoryAreaSize-0>
+      <ChildSegmentarentMemorySpace-0>REGULAR</ChildSegmentarentMemorySpace-0>
+      <MemoryAreaName-1>RAM</MemoryAreaName-1>
+      <MemoryAreaParentMemorySpace-1>REGULAR</MemoryAreaParentMemorySpace-1>
+      <MemoryAreaStartAddress-1>1045248</MemoryAreaStartAddress-1>
+      <MemoryAreaSize-1>3072</MemoryAreaSize-1>
+      <ChildSegmentarentMemorySpace-1>REGULAR</ChildSegmentarentMemorySpace-1>
     </Instance>
   </Class>
   <Class Guid="606767c3-4bf3-4e65-90c1-19075517355d">
@@ -3527,7 +3605,7 @@ cl0rmf.lib
       &lt;/Effect&gt;
     &lt;/fINTTM02&gt;
     &lt;fCLKSource Name="fCLKSource" Text="fIH" /&gt;
-    &lt;VDD_MIN Name="VDD_MIN" Value="4" Comment="4.0V" Trigger="VDD"&gt;
+    &lt;VDD_MIN Name="VDD_MIN" Value="2.4" Comment="4.0V" Trigger="VDD"&gt;
       &lt;Effect&gt;
         &lt;PCLBUZ0 /&gt;
         &lt;PCLBUZ1 /&gt;
@@ -3536,8 +3614,8 @@ cl0rmf.lib
         &lt;SAU1 /&gt;
       &lt;/Effect&gt;
     &lt;/VDD_MIN&gt;
-    &lt;VDD_MAX Name="VDD_MAX" Value="5.5" Comment="5.5V" /&gt;
-    &lt;VDDValue Name="VDDValue" Value="4" Comment="2.7V" Trigger="VDD"&gt;
+    &lt;VDD_MAX Name="VDD_MAX" Value="2.7" Comment="5.5V" /&gt;
+    &lt;VDDValue Name="VDDValue" Value="2.4" Comment="2.7V" Trigger="VDD"&gt;
       &lt;Effect&gt;
         &lt;IICA0 /&gt;
         &lt;SAU0 /&gt;
@@ -3644,8 +3722,8 @@ cl0rmf.lib
       &lt;/CGC&gt;
       &lt;PORT&gt;
         &lt;Port0 Chip="RL78G13_20pin,RL78G13_24pin,RL78G13_25pin,RL78G13_30pin,RL78G13_32pin" DIN="true" Pullup="true"&gt;
-          &lt;P00 Name="P00/ANI17/TI00/TXD1" Nch="true" AltFunc="TXD1" Point="I/O" /&gt;
-          &lt;P01 Name="P01/ANI16/TO00/RXD1" TTL="true" AltFunc="RXD1" Point="I/O" /&gt;
+          &lt;P00 Name="P00/ANI17/TI00/TXD1" Nch="true" AltFunc="" Point="I/O" /&gt;
+          &lt;P01 Name="P01/ANI16/TO00/RXD1" TTL="true" AltFunc="" Point="I/O" /&gt;
         &lt;/Port0&gt;
         &lt;Port1 Chip="RL78G13_30pin,RL78G13_32pin,RL78G13_36pin,RL78G13_40pin,RL78G13_44pin,RL78G13_48pin" Pullup="true"&gt;
           &lt;P10 Name="P10/_SCK00/SCL00" Nch="true" TTL="true" AltFunc="P10" Point="I/O" /&gt;
@@ -3830,11 +3908,11 @@ cl0rmf.lib
           &lt;INTCSI10 InUse="0" ISR="r_csi10_interrupt" /&gt;
           &lt;INTCSI11 InUse="0" ISR="r_csi11_interrupt" /&gt;
           &lt;INTST0 InUse="1" ISR="r_uart0_interrupt_send" /&gt;
-          &lt;INTST1 InUse="1" ISR="r_uart1_interrupt_send" /&gt;
+          &lt;INTST1 InUse="0" ISR="r_uart1_interrupt_send" /&gt;
           &lt;INTSRE0 InUse="0" ISR="r_uart0_interrupt_error" /&gt;
           &lt;INTSRE1 InUse="0" ISR="r_uart1_interrupt_error" /&gt;
           &lt;INTSR0 InUse="1" ISR="r_uart0_interrupt_receive" /&gt;
-          &lt;INTSR1 InUse="1" ISR="r_uart1_interrupt_receive" /&gt;
+          &lt;INTSR1 InUse="0" ISR="r_uart1_interrupt_receive" /&gt;
           &lt;INTIIC00 InUse="0" ISR="r_iic00_interrupt" /&gt;
           &lt;INTIIC01 InUse="0" ISR="r_iic01_interrupt" /&gt;
           &lt;INTIIC10 InUse="0" ISR="r_iic10_interrupt" /&gt;
@@ -3871,7 +3949,7 @@ cl0rmf.lib
             &lt;INTTM00 InUse="1" ISR="r_tau0_channel0_interrupt" /&gt;
           &lt;/Channel0&gt;
           &lt;Channel1&gt;
-            &lt;INTTM01 InUse="1" ISR="r_tau0_channel1_interrupt" /&gt;
+            &lt;INTTM01 InUse="0" ISR="r_tau0_channel1_interrupt" /&gt;
             &lt;INTTM01H InUse="0" ISR="r_tau0_channel1_higher8bits_interrupt" /&gt;
           &lt;/Channel1&gt;
           &lt;Channel2&gt;
@@ -4075,11 +4153,11 @@ cl0rmf.lib
               &lt;R_UART0_Receive UserName="R_UART0_Receive" LibName="R_UARTn_Receive" InUse="1" /&gt;
             &lt;/UART0&gt;
             &lt;UART1 InUse=""&gt;
-              &lt;R_UART1_Create UserName="R_UART1_Create" LibName="R_UARTn_Create" InUse="1" InitMode="" /&gt;
-              &lt;R_UART1_Start UserName="R_UART1_Start" LibName="R_UARTn_Start" InUse="1" /&gt;
-              &lt;R_UART1_Stop UserName="R_UART1_Stop" LibName="R_UARTn_Stop" InUse="1" /&gt;
-              &lt;R_UART1_Send UserName="R_UART1_Send" LibName="R_UARTn_Send" InUse="1" /&gt;
-              &lt;R_UART1_Receive UserName="R_UART1_Receive" LibName="R_UARTn_Receive" InUse="1" /&gt;
+              &lt;R_UART1_Create UserName="R_UART1_Create" LibName="R_UARTn_Create" InUse="0" InitMode="" /&gt;
+              &lt;R_UART1_Start UserName="R_UART1_Start" LibName="R_UARTn_Start" InUse="0" /&gt;
+              &lt;R_UART1_Stop UserName="R_UART1_Stop" LibName="R_UARTn_Stop" InUse="0" /&gt;
+              &lt;R_UART1_Send UserName="R_UART1_Send" LibName="R_UARTn_Send" InUse="0" /&gt;
+              &lt;R_UART1_Receive UserName="R_UART1_Receive" LibName="R_UARTn_Receive" InUse="0" /&gt;
             &lt;/UART1&gt;
             &lt;CSI00 Chip="RL78G13_30pin,RL78G13_32pin,RL78G13_36pin,RL78G13_40pin,RL78G13_44pin,RL78G13_48pin,RL78G13_52pin" PIOR1="0" InUse=""&gt;
               &lt;R_CSI00_Create UserName="R_CSI00_Create" LibName="R_CSIn_Create" InUse="0" InitMode="" /&gt;
@@ -4168,13 +4246,13 @@ cl0rmf.lib
               &lt;r_uart0_callback_softwareoverrun UserName="r_uart0_callback_softwareoverrun" LibName="R_UARTn_Callback_SoftwareOverRun" InUse="1" /&gt;
             &lt;/UART0&gt;
             &lt;UART1 InUse=""&gt;
-              &lt;r_uart1_interrupt_receive UserName="r_uart1_interrupt_receive" INTHandle="" LibName="R_UARTn_Interrupt_Receive" InUse="1" /&gt;
+              &lt;r_uart1_interrupt_receive UserName="r_uart1_interrupt_receive" INTHandle="" LibName="R_UARTn_Interrupt_Receive" InUse="0" /&gt;
               &lt;r_uart1_interrupt_error UserName="r_uart1_interrupt_error" INTHandle="" LibName="R_UARTn_Interrupt_Error" InUse="0" /&gt;
-              &lt;r_uart1_interrupt_send UserName="r_uart1_interrupt_send" INTHandle="" LibName="R_UARTn_Interrupt_Send" InUse="1" /&gt;
-              &lt;r_uart1_callback_receiveend UserName="r_uart1_callback_receiveend" LibName="R_UARTn_Callback_ReceiveEnd" InUse="1" /&gt;
-              &lt;r_uart1_callback_sendend UserName="r_uart1_callback_sendend" LibName="R_UARTn_Callback_SendEnd" InUse="1" /&gt;
-              &lt;r_uart1_callback_error UserName="r_uart1_callback_error" LibName="R_UARTn_Callback_Error" InUse="1" /&gt;
-              &lt;r_uart1_callback_softwareoverrun UserName="r_uart1_callback_softwareoverrun" LibName="R_UARTn_Callback_SoftwareOverRun" InUse="1" /&gt;
+              &lt;r_uart1_interrupt_send UserName="r_uart1_interrupt_send" INTHandle="" LibName="R_UARTn_Interrupt_Send" InUse="0" /&gt;
+              &lt;r_uart1_callback_receiveend UserName="r_uart1_callback_receiveend" LibName="R_UARTn_Callback_ReceiveEnd" InUse="0" /&gt;
+              &lt;r_uart1_callback_sendend UserName="r_uart1_callback_sendend" LibName="R_UARTn_Callback_SendEnd" InUse="0" /&gt;
+              &lt;r_uart1_callback_error UserName="r_uart1_callback_error" LibName="R_UARTn_Callback_Error" InUse="0" /&gt;
+              &lt;r_uart1_callback_softwareoverrun UserName="r_uart1_callback_softwareoverrun" LibName="R_UARTn_Callback_SoftwareOverRun" InUse="0" /&gt;
             &lt;/UART1&gt;
             &lt;CSI00 Chip="RL78G13_30pin,RL78G13_32pin,RL78G13_36pin,RL78G13_40pin,RL78G13_44pin,RL78G13_48pin,RL78G13_52pin" PIOR1="0" InUse=""&gt;
               &lt;r_csi00_interrupt UserName="r_csi00_interrupt" INTHandle="" LibName="R_CSIn_Interrupt" InUse="0" /&gt;
@@ -4275,10 +4353,10 @@ cl0rmf.lib
               &lt;R_TAU0_Channel0_Set_SoftwareTriggerOn UserName="R_TAU0_Channel0_Set_SoftwareTriggerOn" LibName="R_TAU_Channeln_Set_SoftwareTriggerOn" InUse="0" /&gt;
             &lt;/Channel0&gt;
             &lt;Channel1 InUse=""&gt;
-              &lt;R_TAU0_Channel1_Start UserName="R_TAU0_Channel1_Start" LibName="R_TAU_Channeln_Start" InUse="1" /&gt;
+              &lt;R_TAU0_Channel1_Start UserName="R_TAU0_Channel1_Start" LibName="R_TAU_Channeln_Start" InUse="0" /&gt;
               &lt;R_TAU0_Channel1_Higher8bits_Start UserName="R_TAU0_Channel1_Higher8bits_Start" LibName="R_TAU_Channeln_Higher8bits_Start" InUse="0" /&gt;
               &lt;R_TAU0_Channel1_Lower8bits_Start UserName="R_TAU0_Channel1_Lower8bits_Start" LibName="R_TAU_Channeln_Lower8bits_Start" InUse="0" /&gt;
-              &lt;R_TAU0_Channel1_Stop UserName="R_TAU0_Channel1_Stop" LibName="R_TAU_Channeln_Stop" InUse="1" /&gt;
+              &lt;R_TAU0_Channel1_Stop UserName="R_TAU0_Channel1_Stop" LibName="R_TAU_Channeln_Stop" InUse="0" /&gt;
               &lt;R_TAU0_Channel1_Higher8bits_Stop UserName="R_TAU0_Channel1_Higher8bits_Stop" LibName="R_TAU_Channeln_Higher8bits_Stop" InUse="0" /&gt;
               &lt;R_TAU0_Channel1_Lower8bits_Stop UserName="R_TAU0_Channel1_Lower8bits_Stop" LibName="R_TAU_Channeln_Lower8bits_Stop" InUse="0" /&gt;
               &lt;R_TAU0_Channel1_Get_PulseWidth UserName="R_TAU0_Channel1_Get_PulseWidth" LibName="R_TAU_Channeln_Get_PulseWidth" InUse="0" /&gt;
@@ -4325,7 +4403,7 @@ cl0rmf.lib
               &lt;r_tau0_channel0_interrupt UserName="r_tau0_channel0_interrupt" INTHandle="" LibName="r_tau_channeln_interrupt" InUse="1" /&gt;
             &lt;/Channel0&gt;
             &lt;Channel1 InUse=""&gt;
-              &lt;r_tau0_channel1_interrupt UserName="r_tau0_channel1_interrupt" INTHandle="" LibName="r_tau_channeln_interrupt" InUse="1" /&gt;
+              &lt;r_tau0_channel1_interrupt UserName="r_tau0_channel1_interrupt" INTHandle="" LibName="r_tau_channeln_interrupt" InUse="0" /&gt;
               &lt;r_tau0_channel1_higher8bits_interrupt UserName="r_tau0_channel1_higher8bits_interrupt" INTHandle="" LibName="r_tau_channeln_higher8bits_interrupt" InUse="0" /&gt;
             &lt;/Channel1&gt;
             &lt;Channel2 InUse=""&gt;
@@ -4552,7 +4630,8 @@ cl0rmf.lib
       &lt;setting name="PIOR11" value="1" /&gt;
       &lt;setting name="PIOR12" value="1" /&gt;
       &lt;setting name="PIOR13" value="1" /&gt;
-      &lt;setting name="VDD" value="VDD4" /&gt;
+      &lt;setting name="VDD" value="VDD1" /&gt;
+      &lt;setting name="EVDD" value="EVDD3" /&gt;
       &lt;setting name="Main_system_clock" value="high-speed internal clock" /&gt;
       &lt;setting name="High_speed_internal_oscillator" value="operation" /&gt;
       &lt;setting name="High_speed_internal_frequency" value="6" /&gt;
@@ -4905,8 +4984,8 @@ cl0rmf.lib
         &lt;setting name="Detail_function_-i" value="-1" /&gt;
       &lt;/Channel1&gt;
       &lt;Channel2&gt;
-        &lt;setting name="Channel_function_-i" value="1" /&gt;
-        &lt;setting name="Detail_function_-i" value="2" /&gt;
+        &lt;setting name="Channel_function_-i" value="0" /&gt;
+        &lt;setting name="Detail_function_-i" value="-1" /&gt;
         &lt;Both_UART1&gt;
           &lt;setting name="Receive_data_direction" value="LSB" /&gt;
           &lt;setting name="Receive_data_length" value="8 bits" /&gt;
@@ -5039,7 +5118,7 @@ cl0rmf.lib
         &lt;/TAUInterval0&gt;
       &lt;/Channel0&gt;
       &lt;Channel1&gt;
-        &lt;setting name="ChannelFunction" value="1" /&gt;
+        &lt;setting name="ChannelFunction" value="0" /&gt;
         &lt;setting name="Pinselection" value="-1" /&gt;
         &lt;TAUInterval1&gt;
           &lt;setting name="OperationMode" value="16bits" /&gt;

@@ -23,7 +23,7 @@
 * Device(s)    : R5F100BD
 * Tool-Chain   : CA78K0R
 * Description  : This file implements device driver for ADC module.
-* Creation Date: 2016/3/20
+* Creation Date: 2016/3/30
 ***********************************************************************************************************************/
 
 #ifndef ADC_H

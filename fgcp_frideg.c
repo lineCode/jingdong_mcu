@@ -30,10 +30,12 @@ static void closeDoor(unsigned char correctStartAngleRaw)
 {
 	setDoorStatePin(0);
 	
+	gDoorState = DOOR_STATE_CLOSED;
+
 	if (correctStartAngleRaw)
-		gDoorState = DOOR_STATE_IS_CLOSED;
-	else
-		gDoorState = DOOR_STATE_CLOSED;
+	{
+		doorCalibratorSetCloseSignal();
+	}
 
 	gCloseDoorTick = getTickCount();
 }
@@ -66,7 +68,7 @@ static void doorStateMachine()
 		}
 
 		break;
-
+/*
 	case DOOR_STATE_IS_CLOSED:
 		if (overTickCount(gCloseDoorTick, 3000))
 		{
@@ -75,7 +77,7 @@ static void doorStateMachine()
 			fgcpReportNeed(FGCP_REPORT_NEED_FLAG_0X78);
 		}
 		break;
-
+*/
 	}
 }
 

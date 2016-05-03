@@ -23,7 +23,7 @@
 * Device(s)    : R5F100BD
 * Tool-Chain   : CA78K0R
 * Description  : This file implements main function.
-* Creation Date: 2016/3/20
+* Creation Date: 2016/3/30
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -59,7 +59,7 @@ extern volatile uint16_t  g_uart0_tx_count;            /* uart0 send data number
 extern volatile uint16_t  g_uart1_tx_count;            /* uart1 send data number */
 extern volatile uint16_t  g_iica0_tx_cnt;
 extern volatile uint16_t  g_iica0_rx_cnt;
-void test_uart();
+void test_uart2();
 void test_i2c();
 void uartStationInit();
 void uartStationRun();
@@ -67,9 +67,13 @@ void as5600Init();
 void as5600Run();
 void test_led();
 void test_time();
+void flash_hdwinit(void);
 
 /* End user code. Do not edit comment generated here */
 void R_MAIN_UserInit(void);
+void R_UART1_Start(void);
+void R_UART1_Init(void);
+MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num);
 
 /***********************************************************************************************************************
 * Function Name: main
@@ -79,13 +83,19 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
+	flash_hdwinit();
+	usleep(200);
+
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */	
 	mcuStateInit();
 	FGCProtocolInit();
 
 	uartStationInit();
+	R_UART0_Init();
 	R_UART0_Start();
+
+	R_UART1_Init();
     R_UART1_Start();
 
 	//R_IICA0_Create();
@@ -100,7 +110,10 @@ void main(void)
     while (1U)
     {
         ;
-		R_WDT_Restart();
+		if (gMcuState != MCU_STATE_UPDATE)
+		{
+			R_WDT_Restart();
+		}
 		uartStationRun();
 		as5600Run();
 		signalRun();
@@ -111,6 +124,7 @@ void main(void)
 		mcuStateRun();
 
 	//	test_time();
+	//	test_uart2();
     }
     /* End user code. Do not edit comment generated here */
 }
@@ -226,13 +240,13 @@ void test_time()
 
 }
 
-#if 0
+#if 1
 // uint8_t buf0[12] = {0xAA, 0x0B, 0xCA, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x67};
 // uint8_t buf0[12] = {'a', 'b', 'c', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 // uint8_t buf0[12] = {0xAA, 0x33, 0x2A, 0x3A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
- const  uint8_t buf0[12] = { 0xAA, 0x0B, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00, 0xEF}; //fridge test command 
+   uint8_t buf0[12] = { 0xAA, 0x0B, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00, 0xEF}; //fridge test command 
 
-void test_uart()
+void test_uart2()
 {
 // 	uint8_t buf0[12] = {0xAA, 0x0B, 0xCA, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x67};
 
@@ -245,16 +259,16 @@ void test_uart()
 //	if (gTestCount < 900)
 //		return;
 
-//	gTestCount = 0;
+	gTestCount++;
 
-	if (gTestCount == 0) //g_uart1_tx_count == 0)
+	if (gTestCount > 600) //g_uart1_tx_count == 0)
 	{
-	//	buf0[0] = 0xAA;
-	//	buf0[1] = 0x33;
-	//	buf0[2] = 0x2A;
-	//	R_UART1_Send(buf0, 3);
-		gTestCount = 2;
-		R_UART0_Send(buf0, 12);
+		buf0[0] = 0xAA;
+		buf0[1] = 0x00;
+		buf0[2] = 0x01;
+		R_UART1_Send(buf0, 3);
+		gTestCount = 0;
+	//	R_UART0_Send(buf0, 12);
 	}
 
 	//uartStationRun();

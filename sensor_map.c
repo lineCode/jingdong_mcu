@@ -11,8 +11,30 @@ Revision History:
 //#include "r_cg_macrodriver.h"
 
 
-const unsigned short conVoltageToTemperatureMap[81] =
+const unsigned short conVoltageToTemperatureMap[101] =
 {
+
+	3190, //-40
+	3183, //-39
+	3175, //-38
+	3167, //-37
+	3159, //-36
+	3150, //-35
+	3140, //-34
+	3131, //-33
+	3120, //-32
+	3109, //-31
+	3098, //-30
+	3086, //-29
+	3074, //-28
+	3061, //-27
+	3048, //-26
+	3034, //-25
+	3019, //-24
+	3004, //-23
+	2988, //-22
+	2972, //-21
+
 	2955, //	{ -20
 	2937, //	{ -19
 	2919, //	{ -18
@@ -104,15 +126,15 @@ char getTemperatureFromADCValue(unsigned short adcValue)
 
 	voltageInmV = (unsigned short)((unsigned long)adcValue * 3300 / 1023);
 
-	for (n = 0; n <= 80; n += 10)
+	for (n = 0; n <= 100; n += 10)
 	{
 		if (voltageInmV >= conVoltageToTemperatureMap[n])
 			break;
 	}
 
 	if (n <= 0)
-		return -20;
-	else if (n > 80)
+		return -40;
+	else if (n > 100)
 		return 60;
 
 	for (i = n - 10 + 1; i <= n; i++)
@@ -121,7 +143,7 @@ char getTemperatureFromADCValue(unsigned short adcValue)
 			break;
 	}
 
-	return (i - 20);
+	return (i - 40);
 }
 
 const unsigned short conVoltageToHumidity[41 * 7] =

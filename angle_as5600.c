@@ -61,6 +61,7 @@ unsigned short gAS5600StartAngleRaw;
 unsigned short gAS5600Degree;
 unsigned short gCamera0PhotoDegree;
 unsigned short gCamera1PhotoDegree;
+unsigned char  gAS5600I2CErrorCount;
 
 static volatile unsigned char gAS5600I2CFlag;
 
@@ -162,10 +163,15 @@ static void as5600OpStateMachine()
 		goto exit;
 
 	if (as5600I2C_ReadReg(AS5600_ANGLE_H, gAS5600I2CBuffer, 2))
+	{
+		gAS5600I2CErrorCount++;
 		goto exit;
+	}
 
 	gAS5600AngleRaw = (((unsigned short)gAS5600I2CBuffer[0]) << 8) | (gAS5600I2CBuffer[1]);
 	gAS5600WatchDogTick = getTickCount();
+
+	doorCalibratorMachine(gAS5600AngleRaw);
 
 exit:
 	gAS5600OpTick = getTickCount();
@@ -259,6 +265,7 @@ exit:
 }
 
 
+
 static void as5600DegreeProcess()
 {
 	unsigned short degree;
@@ -275,11 +282,17 @@ static void as5600DegreeProcess()
 
 	degree = (unsigned short)(((unsigned long)raw) * 3600 / 4096);
 
-	if (gAS5600Degree >= 450 && degree <= 450)
+	if (gAS5600Degree >= gCamera0PhotoDegree && degree <= gCamera0PhotoDegree)
 	{
 		sendCamera0Signal();
+	}
+
+
+	if (gAS5600Degree >= gCamera1PhotoDegree && degree <= gCamera1PhotoDegree)
+	{
 		sendCamera1Signal();
 	}
+
 
 	gAS5600Degree = degree;
 }
@@ -291,20 +304,24 @@ void as5600CloseDoorSignal()
 }
 
 
+
 void as5600Init()
 {
 	gAS5600AngleRaw = 0;
 	gAS5600I2CFlag = 0;
 
-	gCamera0PhotoDegree = 0;
-	gCamera1PhotoDegree = 0;
+	gCamera0PhotoDegree = 450;
+	gCamera1PhotoDegree = 450;
 
 	gAS5600OpState = AS5600_OP_STATE_IDEL;
 	gAS5600OpTick = 0;
 	gAS5600StartAngleRaw = INVALID_ANGLE_RAW;
 	gAS5600WatchDogTick = 0;
+	gAS5600I2CErrorCount = 0;
+
 
 	IIC_Init();
+	doorCalibratorInit();
 }
 
 

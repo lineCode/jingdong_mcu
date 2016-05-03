@@ -46,7 +46,7 @@ void uartStationPutFridgeRxData(unsigned char data)
 }
 
 
-void uartStationPutAndroidRxData(unsigned char data)
+void uartStationPutAndroidRxDataEx(unsigned char data)
 {
 	unsigned char *buf1, *buf2;
 	unsigned char len1, len2;

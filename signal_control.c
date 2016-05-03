@@ -143,7 +143,7 @@ void signalRun()
 {
 	if (gSignalFlag & SIGNAL_WAKEUP)
 	{
-		if (overTickCount(gSignalWakupTick, 10))
+		if (overTickCount(gSignalWakupTick, 500))
 		{
 			setWakeupSignalPin(0);
 			gSignalFlag &= (unsigned char)(~SIGNAL_WAKEUP);
@@ -162,7 +162,7 @@ void signalRun()
 
 	if (gSignalFlag & SIGNAL_INFRARED)
 	{
-		if (overTickCount(gSignalInfraredTick, 500))
+		if (overTickCount(gSignalInfraredTick, 600))
 		{
 			setInfraredSignalPin(0);
 			gSignalFlag &= (unsigned char)(~(SIGNAL_INFRARED));

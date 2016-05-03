@@ -23,7 +23,7 @@
 * Device(s)    : R5F100BD
 * Tool-Chain   : CA78K0R
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2016/3/20
+* Creation Date: 2016/3/30
 ***********************************************************************************************************************/
 
 #ifndef SERIAL_H
@@ -375,8 +375,6 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _9A00_UART0_RECEIVE_DIVISOR      (0x9A00U)
 #define _9A00_UART0_TRANSMIT_DIVISOR     (0x9A00U)
-#define _9A00_UART1_RECEIVE_DIVISOR      (0x9A00U)
-#define _9A00_UART1_TRANSMIT_DIVISOR     (0x9A00U)
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -395,16 +393,8 @@ static void r_uart0_callback_error(uint8_t err_type);
 static void r_uart0_callback_receiveend(void);
 static void r_uart0_callback_sendend(void);
 static void r_uart0_callback_softwareoverrun(uint16_t rx_data);
-void R_UART1_Create(void);
-void R_UART1_Start(void);
-void R_UART1_Stop(void);
-MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num);
-MD_STATUS R_UART1_Receive(uint8_t * const rx_buf, uint16_t rx_num);
-static void r_uart1_callback_error(uint8_t err_type);
-static void r_uart1_callback_receiveend(void);
-static void r_uart1_callback_sendend(void);
-static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
 
 /* Start user code for function. Do not edit comment generated here */
+void R_UART0_Init(void);
 /* End user code. Do not edit comment generated here */
 #endif

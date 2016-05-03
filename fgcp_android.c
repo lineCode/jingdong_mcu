@@ -19,25 +19,42 @@ Revision History:
 #include "uart_manager.h"
 #include "fgcp.h"
 
+extern unsigned char checkFirmwareGUID(unsigned char *guid);
+extern unsigned char setFirmwareFlagAndReset();
 
 static FGCP_STATE_MACHINE  gAndroidFGCPStateMachine;
 
 
-static void androidSetMCUParameter(unsigned char *data)
+static void androidSetMCUFirmware(FGCP_DATA_HEADR * header)
 {
+	unsigned char *data = &(header->mData0);
+
+	if (header->mLength != FGCP_PACKAGE_INFO_BYTES + 16 - 1)
+		return;
+
+	if (checkFirmwareGUID(data) != 0)
+		return;
+
+	setFirmwareFlagAndReset();
+}
+
+
+static void androidSetMCUParameter(FGCP_DATA_HEADR * header)
+{
+	unsigned char *data = &(header->mData0);
 	unsigned short value;
 
-	value = data[0];
+	value = data[1];
 	value = value << 8;
-	value += data[1];
+	value += data[0];
 	if (value > 0)
 	{
 		gInfraredHumanValve = value;
 	}
 
-	value = data[2];
+	value = data[3];
 	value = value << 8;
-	value += data[3];
+	value += data[2];
 	if (value > 0 && value <= 10000)
 	{
 		gInfraredHumanDistanceTick = value;
@@ -56,9 +73,9 @@ static void androidSetMCUParameter(unsigned char *data)
 	}
 
 
-	value = data[6];
+	value = data[7];
 	value = value << 8;
-	value += data[7];
+	value += data[6];
 	if (value >= 0 && value <= 4095)
 	{
 		gAS5600StartAngleRaw = value;
@@ -75,16 +92,18 @@ static void androidSetMCUParameter(unsigned char *data)
 
 static void androidFGCPMessageProcess()
 {
-	unsigned char *dataBuf = gAndroidFGCPStateMachine.mData.mBuffer + FGCP_HEADER_BYTES;
+//	unsigned char *dataBuf = gAndroidFGCPStateMachine.mData.mBuffer + FGCP_HEADER_BYTES;
 
 	switch (gAndroidFGCPStateMachine.mData.mHeader.mMessageType)
 	{
 	case 0x79:
-		androidSetMCUParameter(dataBuf);
+		androidSetMCUParameter(&(gAndroidFGCPStateMachine.mData.mHeader));
 		gAndroidFGCPStateMachine.mState = FGCP_STATE_TX_ACK_79;
 		break;
 
 	case 0x7A:
+		androidSetMCUFirmware(&(gAndroidFGCPStateMachine.mData.mHeader));
+		gAndroidFGCPStateMachine.mState = FGCP_STATE_TX_ACK_7A;
 		break;
 	}
 }
@@ -97,12 +116,28 @@ static void androidFGCPACK79()
 	messageBuf[FGCP_HEADER_BYTES + 0] = 0;
 	messageBuf[FGCP_HEADER_BYTES + 1] = 0;
 
-	createFGCPMessage(messageBuf, 0x79, 0, 8);
+	createFGCPMessage(messageBuf, 0x79, 0, 2);
 	if (androidUartSend(messageBuf, FGCP_PACKAGE_INFO_BYTES + 2, 1) == MD_OK)
 	{
 		gAndroidFGCPStateMachine.mState = FGCP_STATE_IDLE;
 	}
 }
+
+
+static void androidFGCPACK7A()
+{
+	unsigned char messageBuf[16];
+
+	messageBuf[FGCP_HEADER_BYTES + 0] = 0;
+	messageBuf[FGCP_HEADER_BYTES + 1] = 0;
+
+	createFGCPMessage(messageBuf, 0x7A, 0, 2);
+	if (androidUartSend(messageBuf, FGCP_PACKAGE_INFO_BYTES + 2, 1) == MD_OK)
+	{
+		gAndroidFGCPStateMachine.mState = FGCP_STATE_IDLE;
+	}
+}
+
 
 
 void androidFGCPAnalysis(unsigned char *buf, unsigned char len)
@@ -145,6 +180,12 @@ void androidFGCPRun()
 	{
 		androidFGCPACK79();
 	}
+
+	if (gAndroidFGCPStateMachine.mState == FGCP_STATE_TX_ACK_7A)
+	{
+		androidFGCPACK7A();
+	}
+
 }
 
 
