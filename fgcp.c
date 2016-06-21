@@ -112,6 +112,101 @@ void FGCPStateMachine(FGCP_STATE_MACHINE *stateMachine, unsigned char rxData)
 }
 
 
+const unsigned char  jdMagic[4] = { 0x4e, 0x53, 0x4e, 0x47 };
+void fgcpJdStateMachine(FGCP_STATE_MACHINE *stateMachine, unsigned char rxData)
+{
+	switch (stateMachine->mState)
+	{
+	case FGCP_STATE_IDLE:
+		if (rxData == jdMagic[0])
+		{
+			stateMachine->mData.mBuffer[0] = rxData;
+			stateMachine->mPos = 1;
+
+			stateMachine->mState = FGCP_JD_STATE_SYNC_MAGIC;
+		}
+		else
+			stateMachine->mState = FGCP_STATE_ERROR;
+		break;
+
+	case FGCP_JD_STATE_SYNC_MAGIC:
+		if (rxData == jdMagic[stateMachine->mPos])
+		{
+			stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+			stateMachine->mPos++;
+
+			if (stateMachine->mPos > 3)
+				stateMachine->mState = FGCP_JD_STATE_TYPE;
+		}
+		else
+			stateMachine->mState = FGCP_STATE_ERROR;
+		break;
+
+
+	case FGCP_JD_STATE_TYPE:
+		stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+		stateMachine->mPos++;
+		stateMachine->mState = FGCP_JD_STATE_SEQ;
+		break;
+
+	case FGCP_JD_STATE_SEQ:
+		stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+		stateMachine->mPos++;
+		stateMachine->mState = FGCP_JD_STATE_LEN;
+		break;
+
+	case FGCP_JD_STATE_LEN:
+		stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+		stateMachine->mPos++;
+		stateMachine->mState = FGCP_JD_STATE_LEN_CHECK;
+		break;
+
+	case FGCP_JD_STATE_LEN_CHECK:
+		if (rxData == (stateMachine->mData.mJdHeader.mType ^ stateMachine->mData.mJdHeader.mLen))
+		{
+			stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+			stateMachine->mPos++;
+
+			if (stateMachine->mData.mJdHeader.mLen > 0)
+				stateMachine->mState = FGCP_JD_STATE_DATA;
+			else
+				stateMachine->mState = FGCP_JD_STATE_CRC_0;
+		}
+		else
+			stateMachine->mState = FGCP_STATE_ERROR;
+		break;
+
+
+	case FGCP_JD_STATE_DATA:
+		if (stateMachine->mPos < stateMachine->mData.mJdHeader.mLen + 8)
+		{
+			stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+			stateMachine->mPos++;
+
+			if (stateMachine->mPos >= stateMachine->mData.mJdHeader.mLen + 8)
+				stateMachine->mState = FGCP_JD_STATE_CRC_0;
+		}
+		else
+		{
+			stateMachine->mState = FGCP_STATE_ERROR;
+		}
+		break;
+
+	case FGCP_JD_STATE_CRC_0:
+		stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+		stateMachine->mPos++;
+		stateMachine->mState = FGCP_JD_STATE_CRC_1;
+		break;
+
+	case FGCP_JD_STATE_CRC_1:
+		stateMachine->mData.mBuffer[stateMachine->mPos] = rxData;
+		stateMachine->mPos++;
+		stateMachine->mState = FGCP_STATE_RX_END;
+		break;
+	}
+}
+
+
 void createFGCPACKMessage(unsigned char *messageBuf, unsigned char *data, unsigned char dataLength)
 {
 	FGCP_DATA_HEADR* header = (FGCP_DATA_HEADR*)messageBuf;

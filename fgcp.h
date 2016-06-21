@@ -44,6 +44,15 @@ typedef enum tagFGCP_STATE
 	FGCP_STATE_TX_ACK_1,
 	FGCP_STATE_ERROR,
 
+	FGCP_JD_STATE_SYNC_MAGIC,
+	FGCP_JD_STATE_TYPE,
+	FGCP_JD_STATE_SEQ,
+	FGCP_JD_STATE_LEN,
+	FGCP_JD_STATE_LEN_CHECK,
+	FGCP_JD_STATE_DATA,
+	FGCP_JD_STATE_CRC_0,
+	FGCP_JD_STATE_CRC_1,
+
 } FGCP_STATE;
 
 typedef struct tagFGCP_DATA_HEADR
@@ -69,6 +78,38 @@ typedef struct tagFGCP_DATA_HEADR
 
 } FGCP_DATA_HEADR;
 
+
+
+typedef struct tagFGCP_JD_DATA_HEADR
+{
+	unsigned char mMagic0;
+	unsigned char mMagic1;
+	unsigned char mMagic2;
+	unsigned char mMagic3;
+	unsigned char mType;
+	unsigned char mSeq;
+	unsigned char mLen;
+	unsigned char mLenCheck;
+	unsigned char mData0;
+	unsigned char mData1;
+	unsigned char mData2;
+	unsigned char mData3;
+	unsigned char mData4;
+	unsigned char mData5;
+	unsigned char mData6;
+	unsigned char mData7;
+
+} FGCP_JD_DATA_HEADR;
+
+
+typedef enum tagFGCP_TYPE
+{
+	FGCP_TYPE_MIDEA = 0,
+	FGCP_TYPE_JD, 
+
+} FGCP_TYPE;
+
+
 #define FGCP_HEADER_BYTES	   10
 #define FGCP_TAIL_CHECK_BYTES  1
 #define FGCP_PACKAGE_INFO_BYTES (FGCP_HEADER_BYTES + FGCP_TAIL_CHECK_BYTES)
@@ -84,7 +125,11 @@ typedef struct tagFGCP_STATE_MACHINE
 	{
 		unsigned char mBuffer[FGCP_MAX_DATA_LENGTH];
 		FGCP_DATA_HEADR mHeader;
+		FGCP_JD_DATA_HEADR mJdHeader;
 	} mData;
+
+	unsigned char mJdBuffer[FGCP_MAX_DATA_LENGTH];
+	unsigned char mJdBufferBytes;
 
 } FGCP_STATE_MACHINE;
 
@@ -94,8 +139,13 @@ unsigned char FGCPMessageCheck(unsigned char *messageBuf);
 void createFGCPACKMessage(unsigned char *messageBuf, unsigned char *data, unsigned char dataLength);
 void createFGCPMessage(unsigned char *messageBuf, unsigned char messageType, unsigned char *data, unsigned char dataLength);
 void FGCPStateMachine(FGCP_STATE_MACHINE *stateMachine, unsigned char rxData);
+void fgcpJdStateMachine(FGCP_STATE_MACHINE *stateMachine, unsigned char rxData);
+
 
 #define FGCP_REPORT_NEED_FLAG_0X78  0x01 
+
+FGCP_TYPE getFgcpType();
+void setFgcpType(FGCP_TYPE type);
 
 void fgcpReportNeed(unsigned char needFlag);
 void fgcpReportInit();
@@ -121,5 +171,8 @@ void androidFGCPRun();
 
 void FGCProtocolInit();
 void FGCProtocolRun();
+
+unsigned char fgcpJDConverter(unsigned char *sourceData, unsigned char *destData);
+
 
 #endif

@@ -82,10 +82,15 @@ static void androidSetMCUParameter(FGCP_DATA_HEADR * header)
 	}
 
 	value = data[8];
-	if (value == 0)
+	if ((value & 0x01) == 0)
 		setMcuState(MCU_STATE_WORK);
 	else if (value == 1)
 		setMcuState(MCU_STATE_TEST);
+
+	if ((value & 0x02) == 0)
+		setFgcpType(FGCP_TYPE_MIDEA);
+	else if (value == 1)
+		setMcuState(FGCP_TYPE_JD);
 }
 
 
@@ -139,6 +144,23 @@ static void androidFGCPACK7A()
 }
 
 
+void androidFGCPRxEndProcess()
+{
+	if (getFgcpType() == FGCP_TYPE_MIDEA)
+	{
+		if (FGCPMessageCheck(gAndroidFGCPStateMachine.mData.mBuffer) == MD_OK)
+		{
+			androidFGCPMessageProcess();
+		}
+	}
+	else if (gAndroidFGCPStateMachine.mJdBufferBytes == 0)
+	{
+		gAndroidFGCPStateMachine.mJdBufferBytes = fgcpJDConverter(gAndroidFGCPStateMachine.mData.mBuffer, gAndroidFGCPStateMachine.mJdBuffer);
+	}
+
+	gAndroidFGCPStateMachine.mState = FGCP_STATE_IDLE;
+}
+
 
 void androidFGCPAnalysis(unsigned char *buf, unsigned char len)
 {	
@@ -147,17 +169,17 @@ void androidFGCPAnalysis(unsigned char *buf, unsigned char len)
 	gAndroidFGCPStateMachine.mWatchDogTickSecond = getTickCount();
 
 	for (i = 0; i < len; i++)
-		FGCPStateMachine(&gAndroidFGCPStateMachine, buf[i]);
-
-	if (gAndroidFGCPStateMachine.mState == FGCP_STATE_RX_END)
 	{
-		if (FGCPMessageCheck(gAndroidFGCPStateMachine.mData.mBuffer) == MD_OK)
-		{
-			androidFGCPMessageProcess();
-		}
-		gAndroidFGCPStateMachine.mState = FGCP_STATE_IDLE;
-	}
+		if (getFgcpType() == FGCP_TYPE_MIDEA)
+			FGCPStateMachine(&gAndroidFGCPStateMachine, buf[i]);
+		else
+			fgcpJdStateMachine(&gAndroidFGCPStateMachine, buf[i]);
 
+		if (gAndroidFGCPStateMachine.mState == FGCP_STATE_RX_END)
+		{
+			androidFGCPRxEndProcess();
+		}
+	}
 }
 
 
@@ -170,6 +192,14 @@ void androidFGCPInit()
 
 void androidFGCPRun()
 {
+	if (gAndroidFGCPStateMachine.mJdBufferBytes)
+	{
+		if (fridegUartSend(gAndroidFGCPStateMachine.mJdBuffer, gAndroidFGCPStateMachine.mJdBufferBytes, 0) == MD_OK)
+		{
+			gAndroidFGCPStateMachine.mJdBufferBytes = 0;
+		}
+	}
+
 	if (overTickCount(gAndroidFGCPStateMachine.mWatchDogTickSecond, 50))
 	{
 		gAndroidFGCPStateMachine.mWatchDogTickSecond = getTickCount();

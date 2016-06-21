@@ -48,6 +48,7 @@ Includes
 #include "sensor_adc.h"
 #include "utility.h"
 #include "fgcp.h"
+#include "monitor.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -83,12 +84,15 @@ MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num);
 ***********************************************************************************************************************/
 void main(void)
 {
+   /* Start user code. Do not edit comment generated here */	
 	flash_hdwinit();
 	usleep(200);
+    /* End user code. Do not edit comment generated here */
 
     R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */	
 	mcuStateInit();
+	monitorInit();
 	FGCProtocolInit();
 
 	uartStationInit();
@@ -114,6 +118,7 @@ void main(void)
 		{
 			R_WDT_Restart();
 		}
+		monitorRun();
 		uartStationRun();
 		as5600Run();
 		signalRun();

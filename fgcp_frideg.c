@@ -18,6 +18,7 @@ Revision History:
 #include "fgcp.h"
 #include "signal_control.h"
 #include "angle_as5600.h"
+#include "uart_manager.h"
 
 DOOR_STATE   gDoorState;
 static unsigned short  gCloseDoorTick;
@@ -107,6 +108,12 @@ static void fridgeFGCPMessageProcess()
 			closeDoor(1);
 		}
 	}
+
+	if ((getFgcpType() != FGCP_TYPE_MIDEA) && (gFridgeFGCPStateMachine.mJdBufferBytes == 0))
+	{
+		gFridgeFGCPStateMachine.mJdBufferBytes = fgcpJDConverter(gFridgeFGCPStateMachine.mData.mBuffer, gFridgeFGCPStateMachine.mJdBuffer);
+	}
+	
 }
 
 
@@ -145,6 +152,15 @@ void fgcpFridegInit()
 
 void fgcpFridegRun()
 {
+	if (gFridgeFGCPStateMachine.mJdBufferBytes)
+	{
+		if (androidUartSend(gFridgeFGCPStateMachine.mJdBuffer, \
+			gFridgeFGCPStateMachine.mJdBufferBytes, 0) == MD_OK)
+		{
+			gFridgeFGCPStateMachine.mJdBufferBytes = 0;
+		}
+	}
+
 	if (overTickCount(gFridgeFGCPStateMachine.mWatchDogTickSecond, 50))
 	{
 		gFridgeFGCPStateMachine.mWatchDogTickSecond = getTickCount();

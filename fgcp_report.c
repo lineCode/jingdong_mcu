@@ -30,7 +30,7 @@ typedef enum tagFGCP_REPORT_STATE
 
 } FGCP_REPORT_STATE;
 
-
+static FGCP_TYPE          gFgcpType;
 static FGCP_REPORT_STATE  gFGCPReportState;
 static unsigned char	  gFGCPReportCount;
 static unsigned short	  gFGCPReportTickSecond;
@@ -222,6 +222,20 @@ static void fgcpReportStateMachine()
 	}
 }
 
+
+FGCP_TYPE getFgcpType()
+{
+	return gFgcpType;
+}
+
+
+void setFgcpType(FGCP_TYPE type)
+{
+	if (type == FGCP_TYPE_MIDEA || type == FGCP_TYPE_JD)
+		gFgcpType = type;
+}
+
+
 void fgcpReportNeed(unsigned char needFlag)
 {
 	gFGCPeportNeedFlag |= needFlag;
@@ -230,6 +244,7 @@ void fgcpReportNeed(unsigned char needFlag)
 
 void fgcpReportInit()
 {
+	gFgcpType = FGCP_TYPE_MIDEA;
 	gFGCPReportState = FGCP_REPORT_STATE_INIT;
 	gFGCPReportTickSecond = 0;
 	gFGCPReportTestTickSecond = 0;

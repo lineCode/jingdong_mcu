@@ -29,6 +29,11 @@ typedef enum tagSENSOR_ADC_OP_STATE
 
 } SENSOR_ADC_OP_STATE;
 
+#define TEMPERATURE_ADC_BUFFER_SIZE  5
+static unsigned short gTemperatureADCBuffer[TEMPERATURE_ADC_BUFFER_SIZE];
+static unsigned char  gTemperatureADCBufferIndex;
+static unsigned char  gTemperatureADCBufferDataCount;
+
 unsigned short gTemperatureSensorADCValue;
 volatile unsigned short gHumiditySensorADCValue;
 unsigned short gInfraredSensorADCValue;
@@ -39,6 +44,8 @@ static SENSOR_ADC_OP_STATE   gSensorADCOpState;
 static unsigned short gTemperatureADCTick;
 static unsigned short gHumidityADCTick;
 static unsigned short gInfraredADCTick;
+
+
 
 typedef enum tagINFRARED_STATE
 {
@@ -152,12 +159,20 @@ static void sensorInfraredProcess()
 }
 
 
-static unsigned short dejitterADC(unsigned short currentValue, unsigned short adcValue)
+static unsigned short dejitterTemperatureADC(unsigned short adcValue)
 {
-	//if (currentValue == 0)
-	return adcValue;
+	unsigned short total = 0;
+	unsigned char i;
 
-	//return (unsigned short)((((unsigned long)currentValue) * 9 + adcValue / 10) / 10);
+	gTemperatureADCBuffer[gTemperatureADCBufferIndex] = adcValue;
+	gTemperatureADCBufferIndex = (gTemperatureADCBufferIndex + 1) % TEMPERATURE_ADC_BUFFER_SIZE;
+	if (gTemperatureADCBufferDataCount < TEMPERATURE_ADC_BUFFER_SIZE)
+		gTemperatureADCBufferDataCount++;
+
+	for (i = 0; i < gTemperatureADCBufferDataCount; i++)
+		total += gTemperatureADCBuffer[i];
+
+	return total / gTemperatureADCBufferDataCount;
 }
 
 
@@ -214,7 +229,7 @@ static void sensorADCOpStateMachine()
 			R_ADC_Get_Result(&adcResult);
 			R_ADC_Stop();
 
-			gTemperatureSensorADCValue = dejitterADC(gTemperatureSensorADCValue, adcResult);
+			gTemperatureSensorADCValue = dejitterTemperatureADC(adcResult);
 			gSensorADCOpState = SENSOR_ADC_OP_STATE_IDLE;
 		}
 		break;
@@ -265,6 +280,9 @@ void sensorADCInit()
 	gTemperatureSensorADCValue = 560; //1819 - 20
 	gHumiditySensorADCValue    = 0;
 	gInfraredSensorADCValue    = 0;
+
+	gTemperatureADCBufferIndex = 0;
+	gTemperatureADCBufferDataCount = 0;
 
 	gTimer0HumidityCount = 0;
 	gHumidityADCState = HUMIDITY_ADC_STATE_INIT;

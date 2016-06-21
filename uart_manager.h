@@ -13,7 +13,7 @@ Revision History:
 #ifndef UART_MANAGER_H
 #define UART_MANAGER_H
 
-#define UART_TX_BUFFER_MAX_SIZE  32
+#define UART_TX_BUFFER_MAX_SIZE  128
 
 unsigned char androidUartSend(unsigned char *buffer, unsigned char length, unsigned char inIdle);
 unsigned char fridegUartSend(unsigned char *buffer, unsigned char length, unsigned char inIdle);

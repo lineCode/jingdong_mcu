@@ -55,8 +55,22 @@ Global variables and functions
 ***********************************************************************************************************************/
 void Boot_R_PORT_Create(void)
 {
+//    PU4 = _01_PUn0_PULLUP_ON;
+//    PM7 = _01_PMn0_MODE_INPUT | _FE_PM7_DEFAULT;
+
+    P1 = _00_Pn0_OUTPUT_0 | _00_Pn3_OUTPUT_0 | _00_Pn5_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _00_Pn7_OUTPUT_0;
+    P3 = _00_Pn0_OUTPUT_0;
+    P5 = _00_Pn1_OUTPUT_0;
+    P12 = _00_Pn0_OUTPUT_0;
     PU4 = _01_PUn0_PULLUP_ON;
+    PMC12 = _00_PMCn0_DI_ON | _FE_PMC12_DEFAULT;
+    PM1 = _00_PMn0_MODE_OUTPUT | _02_PMn1_NOT_USE | _04_PMn2_NOT_USE | _00_PMn3_MODE_OUTPUT | _10_PMn4_NOT_USE |
+          _00_PMn5_MODE_OUTPUT | _00_PMn6_MODE_OUTPUT | _00_PMn7_MODE_OUTPUT;
+    PM3 = _00_PMn0_MODE_OUTPUT | _02_PMn1_NOT_USE | _FC_PM3_DEFAULT;
+    PM5 = _01_PMn0_MODE_INPUT | _00_PMn1_MODE_OUTPUT | _FC_PM5_DEFAULT;
+    PM6 = _01_PMn0_MODE_INPUT | _02_PMn1_MODE_INPUT | _04_PMn2_NOT_USE | _F8_PM6_DEFAULT;
     PM7 = _01_PMn0_MODE_INPUT | _FE_PM7_DEFAULT;
+    PM12 = _00_PMn0_MODE_OUTPUT | _FE_PM12_DEFAULT;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

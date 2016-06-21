@@ -76,7 +76,10 @@ static void fridegToAndroid()
 		return;
 
 	ringBufferGetData(&gFridgeToAndroidContext, &buf1, &len1, &buf2, &len2);
-	if (len1)
+	if (len1 == 0)
+		return;
+
+	if (getFgcpType() == FGCP_TYPE_MIDEA)
 	{
 		if (androidUartSend(buf1, len1, 0) == MD_OK)
 		{
@@ -84,14 +87,13 @@ static void fridegToAndroid()
 			ringBufferGet(&gFridgeToAndroidContext, len1);
 		}
 	}
-	else if (len2)
+	else
 	{
-		if (androidUartSend(buf2, len2, 0) == MD_OK)
-		{
-			fridgeFGCPAnalysis(buf2, len2);
-			ringBufferGet(&gFridgeToAndroidContext, len2);
-		}
+		fridgeFGCPAnalysis(buf1, len1);
+		ringBufferGet(&gFridgeToAndroidContext, len1);
 	}
+
+
 }
 
 
@@ -104,7 +106,10 @@ static void androidToFrideg()
 		return;
 
 	ringBufferGetData(&gAndroidToFridgeContext, &buf1, &len1, &buf2, &len2);
-	if (len1)
+	if (len1 == 0)
+		return;
+
+	if (getFgcpType() == FGCP_TYPE_MIDEA)
 	{
 		if (fridegUartSend(buf1, len1, 0) == MD_OK)
 		{
@@ -112,13 +117,10 @@ static void androidToFrideg()
 			ringBufferGet(&gAndroidToFridgeContext, len1);
 		}
 	}
-	else if (len2)
+	else
 	{
-		if (fridegUartSend(buf2, len2, 0) == MD_OK)
-		{
-			androidFGCPAnalysis(buf2, len2);
-			ringBufferGet(&gAndroidToFridgeContext, len2);
-		}
+		androidFGCPAnalysis(buf1, len1);
+		ringBufferGet(&gAndroidToFridgeContext, len1);
 	}
 }
 
