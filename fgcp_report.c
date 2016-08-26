@@ -22,6 +22,7 @@ Revision History:
 #include "sensor_map.h"
 #include "uart_manager.h"
 #include "utility.h"
+#include "heater.h"
 
 typedef enum tagFGCP_REPORT_STATE
 {
@@ -111,6 +112,14 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 	dataBuf[16] = (unsigned char)(gCamera1PhotoDegree / 10);
 
 	dataBuf[17] = (unsigned char)(gAS5600I2CErrorCount);
+
+	dataBuf[18] = 0;
+	dataBuf[19] = 0;
+	if (gHeaterData.mPeriod > 0)
+	{
+		dataBuf[18] = 2000 / gHeaterData.mPeriod;
+		dataBuf[19] = gHeaterData.mDuty * 100 / gHeaterData.mPeriod;
+	}
 }
 
 
@@ -145,12 +154,12 @@ static void fgcpReport0xED()
 
 static void fgcpReport0x78()
 {
-	unsigned char messageBuf[30];
+	unsigned char messageBuf[32];
 
 	fill_0x78_MessageData(messageBuf);
-	createFGCPMessage(messageBuf, 0x78, 0, 18);
+	createFGCPMessage(messageBuf, 0x78, 0, 20);
 	
-	if (androidUartSend(messageBuf, FGCP_PACKAGE_INFO_BYTES + 18, 1) == MD_OK)
+	if (androidUartSend(messageBuf, FGCP_PACKAGE_INFO_BYTES + 20, 1) == MD_OK)
 	{
 		gFGCPeportNeedFlag &= (unsigned char)(~FGCP_REPORT_NEED_FLAG_0X78);
 	}

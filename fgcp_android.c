@@ -18,6 +18,7 @@ Revision History:
 #include "angle_as5600.h"
 #include "uart_manager.h"
 #include "fgcp.h"
+#include "heater.h"
 
 extern unsigned char checkFirmwareGUID(unsigned char *guid);
 extern unsigned char setFirmwareFlagAndReset();
@@ -91,6 +92,11 @@ static void androidSetMCUParameter(FGCP_DATA_HEADR * header)
 		setFgcpType(FGCP_TYPE_MIDEA);
 	else if (value == 1)
 		setMcuState(FGCP_TYPE_JD);
+
+	if (header->mLength > (FGCP_PACKAGE_INFO_BYTES - 1) + 9)
+	{
+		heaterSetParamter(data[9], data[10]);
+	}
 }
 
 

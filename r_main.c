@@ -2,15 +2,15 @@
 * DISCLAIMER
 * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products.
 * No other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
-* applicable laws, including copyright laws. 
+* applicable laws, including copyright laws.
 * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIESREGARDING THIS SOFTWARE, WHETHER EXPRESS, IMPLIED
 * OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 * NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY
 * LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE FOR ANY DIRECT,
 * INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR
 * ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability 
-* of this software. By using this software, you agree to the additional terms and conditions found by accessing the 
+* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability
+* of this software. By using this software, you agree to the additional terms and conditions found by accessing the
 * following link:
 * http://www.renesas.com/disclaimer
 *
@@ -49,6 +49,7 @@ Includes
 #include "utility.h"
 #include "fgcp.h"
 #include "monitor.h"
+#include "heater.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -84,13 +85,13 @@ MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num);
 ***********************************************************************************************************************/
 void main(void)
 {
-   /* Start user code. Do not edit comment generated here */	
+	/* Start user code. Do not edit comment generated here */
 	flash_hdwinit();
 	usleep(200);
-    /* End user code. Do not edit comment generated here */
+	/* End user code. Do not edit comment generated here */
 
-    R_MAIN_UserInit();
-    /* Start user code. Do not edit comment generated here */	
+	R_MAIN_UserInit();
+	/* Start user code. Do not edit comment generated here */
 	mcuStateInit();
 	monitorInit();
 	FGCProtocolInit();
@@ -100,20 +101,20 @@ void main(void)
 	R_UART0_Start();
 
 	R_UART1_Init();
-    R_UART1_Start();
+	R_UART1_Start();
 
 	//R_IICA0_Create();
 	as5600Init();
-
+	heaterInit();
 	signalInit();
-	timeInit();
-
 	sensorADCInit();
+
+	timeInit();
 	R_ADC_Set_OperationOn();
 
-    while (1U)
-    {
-        ;
+	while (1U)
+	{
+		;
 		if (gMcuState != MCU_STATE_UPDATE)
 		{
 			R_WDT_Restart();
@@ -127,11 +128,11 @@ void main(void)
 		FGCProtocolRun();
 
 		mcuStateRun();
-
-	//	test_time();
-	//	test_uart2();
-    }
-    /* End user code. Do not edit comment generated here */
+		heaterRun();
+		//	test_time();
+		//	test_uart2();
+	}
+	/* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
@@ -142,9 +143,9 @@ void main(void)
 ***********************************************************************************************************************/
 void R_MAIN_UserInit(void)
 {
-    /* Start user code. Do not edit comment generated here */
-    EI();
-    /* End user code. Do not edit comment generated here */
+	/* Start user code. Do not edit comment generated here */
+	EI();
+	/* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
@@ -153,9 +154,9 @@ void test_led()
 {
 	unsigned short tick = getTickCount();
 	if ((tick % 2000) < 1000)
-		P1 |=  _40_Pn6_OUTPUT_1;
+		P1 |= _40_Pn6_OUTPUT_1;
 	else
-		P1 &=(unsigned char) ~(_40_Pn6_OUTPUT_1);
+		P1 &= (unsigned char)~(_40_Pn6_OUTPUT_1);
 }
 #endif
 
@@ -188,13 +189,13 @@ void test_time()
 
 	count = 0;  //3 x 1 nop 12.71 s  86.6khz; 3 x 2 nop 16.03  68.6KHZ
 	count = 2;
-	
+
 #elif 1
 	gTestCount++; //MAIN LOOP: 30S  368395  12.279KHZ
 #elif 0
 	//test usleep();
 	unsigned short count;
-	
+
 	for (count = 0; count < 6000; count++)
 	{
 		usleep(10000);
@@ -223,7 +224,7 @@ void test_time()
 	if (tick < gTestTick)
 	{
 		tick = 0;
-		
+
 		t = overTickCount(gTestTick, 3);
 		gTestTick = 0;
 	}
@@ -249,20 +250,20 @@ void test_time()
 // uint8_t buf0[12] = {0xAA, 0x0B, 0xCA, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x67};
 // uint8_t buf0[12] = {'a', 'b', 'c', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 // uint8_t buf0[12] = {0xAA, 0x33, 0x2A, 0x3A, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
-   uint8_t buf0[12] = { 0xAA, 0x0B, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00, 0xEF}; //fridge test command 
+uint8_t buf0[12] = { 0xAA, 0x0B, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00, 0xEF }; //fridge test command 
 
 void test_uart2()
 {
-// 	uint8_t buf0[12] = {0xAA, 0x0B, 0xCA, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x67};
+	// 	uint8_t buf0[12] = {0xAA, 0x0B, 0xCA, 0xC1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x67};
 
 	//   uint8_t buf1[2] = {0x55, 0x55}; //android �� -- 
-//	buf0[0] = gTestCount;
-//	gTestCount++;
-//	buf0[1] = gTestCount;
-//	gTestCount++;
-//	gTestCount++;
-//	if (gTestCount < 900)
-//		return;
+	//	buf0[0] = gTestCount;
+	//	gTestCount++;
+	//	buf0[1] = gTestCount;
+	//	gTestCount++;
+	//	gTestCount++;
+	//	if (gTestCount < 900)
+	//		return;
 
 	gTestCount++;
 
@@ -273,7 +274,7 @@ void test_uart2()
 		buf0[2] = 0x01;
 		R_UART1_Send(buf0, 3);
 		gTestCount = 0;
-	//	R_UART0_Send(buf0, 12);
+		//	R_UART0_Send(buf0, 12);
 	}
 
 	//uartStationRun();
@@ -300,12 +301,12 @@ void test_i2c()
 	uint8_t buf[2] = { 0x0e, 0x25 };
 	unsigned short raw;
 	MD_STATUS  status;
-	
+
 	gTestCount++;
 	if (gTestCount < 500)
 		return;
-	
-	gTestCount = 0;	
+
+	gTestCount = 0;
 
 	do
 	{
@@ -314,7 +315,7 @@ void test_i2c()
 
 	} while (status == MD_ERROR1);
 
-//	while (g_iica0_tx_cnt);
+	//	while (g_iica0_tx_cnt);
 	while (gI2CTestFlag);
 
 	do
@@ -324,23 +325,23 @@ void test_i2c()
 	} while (status == MD_ERROR1);
 
 
-//	while (g_iica0_rx_cnt < 2);
+	//	while (g_iica0_rx_cnt < 2);
 
 	while (gI2CTestFlag);
 
-//	if ((buf[0] & 0x20) == 0)
-//		return;
+	//	if ((buf[0] & 0x20) == 0)
+	//		return;
 
-//	usleep(10000);
-	
+	//	usleep(10000);
+
 	buf[0] = 0x0e;
-	
+
 	return;
 	/*
 	do
 	{
-		gI2CTestFlag = 1;
-		status = R_IICA0_Master_Send(AS5600_I2C_ADDR | I2C_WRITE_FLAG, buf, 1, 2);
+	gI2CTestFlag = 1;
+	status = R_IICA0_Master_Send(AS5600_I2C_ADDR | I2C_WRITE_FLAG, buf, 1, 2);
 	} while (status == MD_ERROR1);
 
 	while (gI2CTestFlag);
@@ -348,8 +349,8 @@ void test_i2c()
 
 	do
 	{
-		gI2CTestFlag = 1;
-		R_IICA0_Master_Receive(AS5600_I2C_ADDR | I2C_READ_FLAG, buf, 2, 10);
+	gI2CTestFlag = 1;
+	R_IICA0_Master_Receive(AS5600_I2C_ADDR | I2C_READ_FLAG, buf, 2, 10);
 
 	} while (status == MD_ERROR1);
 
@@ -363,14 +364,14 @@ void test_i2c()
 
 	do
 	{
-		status = R_IICA0_Master_Send(AS5600_I2C_ADDR | I2C_WRITE_FLAG, buf, 1, 2);
+	status = R_IICA0_Master_Send(AS5600_I2C_ADDR | I2C_WRITE_FLAG, buf, 1, 2);
 	} while (status == MD_ERROR1);
 
 	while (g_iica0_tx_cnt);
 
 	do
 	{
-		R_IICA0_Master_Receive(AS5600_I2C_ADDR | I2C_READ_FLAG, buf, 1, 10);
+	R_IICA0_Master_Receive(AS5600_I2C_ADDR | I2C_READ_FLAG, buf, 1, 10);
 	} while (status == MD_ERROR1);
 
 	while (g_iica0_rx_cnt < 1);

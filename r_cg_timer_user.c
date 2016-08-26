@@ -23,7 +23,7 @@
 * Device(s)    : R5F100BD
 * Tool-Chain   : CA78K0R
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2016/3/30
+* Creation Date: 2016/8/26
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -48,6 +48,7 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 extern volatile unsigned long  gTickMillisecondCount;
 void timer0_callback();
+void timer0HeadterCallback();
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -60,6 +61,7 @@ __interrupt static void r_tau0_channel0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
 	timer0_callback();
+	timer0HeadterCallback();
     /* End user code. Do not edit comment generated here */
 }
 
