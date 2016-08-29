@@ -16,7 +16,9 @@ Revision History:
 
 typedef struct tagHEATER_DATA
 {
-	unsigned char  mEnable;
+	unsigned char  mEnable : 1;
+	unsigned char  mAuto : 1;
+
 	unsigned short mTick;
 	unsigned short mCount;
 	unsigned short mPeriod;
@@ -29,6 +31,7 @@ void timer0HeadterCallback();
 
 void heaterSetParamter(unsigned char freq, unsigned char duty);
 void heaterEnable(unsigned char enable);
+void heaterAutoUpdate(unsigned char update);
 void heaterInit();
 void heaterRun();
 

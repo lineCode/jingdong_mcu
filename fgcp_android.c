@@ -95,7 +95,14 @@ static void androidSetMCUParameter(FGCP_DATA_HEADR * header)
 
 	if (header->mLength > (FGCP_PACKAGE_INFO_BYTES - 1) + 9)
 	{
-		heaterSetParamter(data[9], data[10]);
+		if (data[9] == 1)
+			heaterAutoUpdate(1);
+		else
+		{
+			heaterAutoUpdate(0);
+			heaterSetParamter(data[9], data[10]);
+		}
+
 	}
 }
 
