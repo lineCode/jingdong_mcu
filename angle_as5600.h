@@ -21,11 +21,15 @@ void doorCalibratorInit();
 void doorCalibratorSetCloseSignal();
 void doorCalibratorMachine(unsigned short rawAngle);
 
+extern unsigned short angleSpeed;
+extern unsigned short angleSpeed1;
 extern unsigned short gAS5600AngleRaw;
 extern unsigned short gAS5600StartAngleRaw;
 extern unsigned short gAS5600Degree;
 extern unsigned short gCamera0PhotoDegree;
 extern unsigned short gCamera1PhotoDegree;
 extern unsigned char  gAS5600I2CErrorCount;
+
+
 
 #endif

@@ -51,6 +51,7 @@ void doorCalibratorSetCloseSignal()
 void doorCalibratorMachine(unsigned short rawAngle)
 {
 	unsigned char i;
+	unsigned char count;
 	if (gDoorCalibratorState != DOOR_CALIBRATOR_STATE_CLOSING)
 		return;
 
@@ -63,15 +64,21 @@ void doorCalibratorMachine(unsigned short rawAngle)
 	if (!overTickCount(gDoorCalibratorTick, 2000))
 		return;
 
+	count = 5;
+	if (getMcuState() == MCU_STATE_TEST)
+		count = 3;
+	
+
+		
 	gDoorCalibratorTick = getTickCount();
 
-	gDoorCalibratorAngle[gDoorCalibratorAngleCount % 5] = rawAngle;
+	gDoorCalibratorAngle[gDoorCalibratorAngleCount % count] = rawAngle;
 	gDoorCalibratorAngleCount++;
 
-	if (gDoorCalibratorAngleCount < 5)
+	if (gDoorCalibratorAngleCount < count)
 		return;
 
-	for (i = 1; i < 5; i++)
+	for (i = 1; i < count; i++)
 	{
 		if (abs(gDoorCalibratorAngle[0], gDoorCalibratorAngle[i]) > 5)
 		{
@@ -79,7 +86,7 @@ void doorCalibratorMachine(unsigned short rawAngle)
 		}
 	}
 
-	if (i < 5)
+	if (i < count)
 		return;
 
 	as5600CloseDoorSignal();

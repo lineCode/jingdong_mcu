@@ -40,6 +40,6 @@ void mcuStateRun();
 MCU_STATE  getMcuState();
 void setMcuState(MCU_STATE state);
 
-#define  FIRMWARE_VERSION  0x07
+#define  FIRMWARE_VERSION  0x18
 
 #endif

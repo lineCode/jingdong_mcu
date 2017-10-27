@@ -44,7 +44,7 @@ void monitorInit()
 
 void monitorRun()
 {
-	if (getAndroidStateLevel())
+	if (!getAndroidStateLevel())
 	{
 		gAndroidMonitorTick = getTickCount();
 		return;
@@ -55,9 +55,8 @@ void monitorRun()
 		gAndroidBeatLevel   = getAndroidBeatLevel();
 		gAndroidMonitorTick = getTickCount();
 	}
-
 	if (overTickCount(gAndroidMonitorTick, 50000))
-	{
+	{	
 		sendResetSignal();
 		gAndroidMonitorTick = getTickCount();
 	}

@@ -24,6 +24,8 @@ Revision History:
 #include "utility.h"
 #include "heater.h"
 
+#include "infrared_monitor.h"
+
 typedef enum tagFGCP_REPORT_STATE
 {
 	FGCP_REPORT_STATE_INIT,
@@ -73,6 +75,7 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 {
 	unsigned char *dataBuf = messageBuf + FGCP_HEADER_BYTES;
 	unsigned short value;
+	unsigned long  temp = 0;
 	char temperature;
 
 	temperature = (char)getTemperatureFromADCValue(gTemperatureSensorADCValue);
@@ -83,6 +86,7 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 	dataBuf[1] = (unsigned char)value;
 
 	value = gAS5600Degree;
+	//value = last_count;
 	dataBuf[2] = (unsigned char)value;
 	dataBuf[3] = (unsigned char)(value >> 8);
 
@@ -91,10 +95,12 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 	dataBuf[5] = (unsigned char)(value >> 8);
 
 	value = gAS5600StartAngleRaw;
+	//value = gInfraredMonitor.count;
 	dataBuf[6] = (unsigned char)value;
 	dataBuf[7] = (unsigned char)(value >> 8);
 
 	value = gAS5600AngleRaw;
+	//value = last_avg_value;
 	dataBuf[8] = (unsigned char)value;
 	dataBuf[9] = (unsigned char)(value >> 8);
 
@@ -112,14 +118,19 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 	dataBuf[16] = (unsigned char)(gCamera1PhotoDegree / 10);
 
 	dataBuf[17] = (unsigned char)(gAS5600I2CErrorCount);
-
+	
 	dataBuf[18] = 0;
 	dataBuf[19] = 0;
 	if (gHeaterData.mPeriod > 0)
 	{
 		dataBuf[18] = 2000 / gHeaterData.mPeriod;
-		dataBuf[19] = gHeaterData.mDuty * 100 / gHeaterData.mPeriod;
+		temp = gHeaterData.mDuty;
+		temp = temp * 100 / gHeaterData.mPeriod;
+		dataBuf[19] = temp; 
+		//((gHeaterData.mDuty * 100) / gHeaterData.mPeriod);
 	}
+	//dataBuf[18] = (unsigned char)(last_var_value >> 8);
+	//dataBuf[19] = (unsigned char)last_var_value;
 }
 
 

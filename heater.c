@@ -35,7 +35,8 @@ void timer0HeadterCallback()
 {
 	if (gHeaterData.mEnable == 0)
 		return;
-
+	//if(mIdleFlag)
+	//	return;
 	gHeaterData.mCount++;
 	if (gHeaterData.mCount >= gHeaterData.mPeriod)
 	{ 
@@ -54,7 +55,8 @@ void timer0HeadterCallback()
 void heaterSetParamter(unsigned char freq, unsigned char duty)
 {
 //	DI();
-
+	unsigned long temp;
+	
 	if (freq == 0)
 	{
 		gHeaterData.mEnable = 0;
@@ -63,8 +65,16 @@ void heaterSetParamter(unsigned char freq, unsigned char duty)
 	}
 	else if (freq <= 200)
 		gHeaterData.mPeriod = 2000 / freq;
-
-	gHeaterData.mDuty = gHeaterData.mPeriod * duty / 100;
+	else
+		gHeaterData.mPeriod = 2000 / 200;
+	
+	//gHeaterData.mDuty = gHeaterData.mPeriod * duty / 100;
+	
+	temp = gHeaterData.mPeriod;
+	
+	temp = temp * duty / 100;
+	
+	gHeaterData.mDuty = temp;
 
 //	EI();
 }
@@ -82,22 +92,37 @@ void heaterAutoUpdate(unsigned char update)
 }
 
 
-//on£º15  off : 45	on£º25  off : 35	on£º35  off : 25	on£º45  off : 45	on£º50  off : 10	on£º55  off : 5
-//on£º10  off : 50	on£º20  off : 45	on£º30  off : 40	on£º35  off : 30	on£º45  off : 20	on£º50  off : 10
-//on£º10  off : 45	on£º15  off : 45	on£º25  off : 35	on£º30  off : 30	on£º40  off : 45	on£º45  off : 45
-//on£º5  off : 55	on£º10  off : 50	on£º15  off : 45	on£º20  off : 40	on£º30  off : 30	on£º40  off : 20
-//on£º0  off : 60	on£º5  off : 55	on£º10  off : 50	on£º15  off : 45	on£º20  off : 40	on£º30  off : 30
-static const unsigned char conHeaterDutyTable[][6] =
+//onï¿½ï¿½15  off : 45	onï¿½ï¿½25  off : 35	onï¿½ï¿½35  off : 25	onï¿½ï¿½45  off : 45	onï¿½ï¿½50  off : 10	onï¿½ï¿½55  off : 5
+//onï¿½ï¿½10  off : 50	onï¿½ï¿½20  off : 45	onï¿½ï¿½30  off : 40	onï¿½ï¿½35  off : 30	onï¿½ï¿½45  off : 20	onï¿½ï¿½50  off : 10
+//onï¿½ï¿½10  off : 45	onï¿½ï¿½15  off : 45	onï¿½ï¿½25  off : 35	onï¿½ï¿½30  off : 30	onï¿½ï¿½40  off : 45	onï¿½ï¿½45  off : 45
+//onï¿½ï¿½5  off : 55	onï¿½ï¿½10  off : 50	onï¿½ï¿½15  off : 45	onï¿½ï¿½20  off : 40	onï¿½ï¿½30  off : 30	onï¿½ï¿½40  off : 20
+//onï¿½ï¿½0  off : 60	onï¿½ï¿½5  off : 55	onï¿½ï¿½10  off : 50	onï¿½ï¿½15  off : 45	onï¿½ï¿½20  off : 40	onï¿½ï¿½30  off : 30
+/*static const unsigned char conHeaterDutyTable[][4] =
 {
-	{15, 25, 35, 45, 60, 55},
+	{15, 25, 35, 45, 50, 55},
 	{10, 20, 30, 35, 45, 50},
 	{10, 15, 25, 30, 40, 45},
 	{5,  10, 15, 20, 30, 40},
 	{0,  5,  10, 15, 20, 30},
+};*/
+//70%	80%	90%	90%
+//50%	70%	80%	90%
+//30%	60%	70%	80%
+//20%	40%	60%	80%
+//0	20%	50%	70%
+static const unsigned char conHeaterDutyTable[][4] =
+{
+	{42, 48, 54, 54},
+	{30, 42, 48, 54},
+	{18, 36, 42, 48},
+	{12, 24, 36, 48},
+	{0,  12, 30, 42},
 };
 
+
+
 static const char conHeaterDutyTableTemperature[] =
-{ 10, 14, 22, 28, 35};
+{ 10, 28, 35};
 
 static const char conHeaterDutyTableHumidity[] =
 {55, 65, 75, 85};
@@ -114,6 +139,20 @@ char indexForValue(char value, const char limits[], char size)
 	return i;
 }
 
+char humidityIndexForValue(char value, const char limits[], char size)
+{
+	char j;
+	char k = 0;
+	for(j = size;j > 0;j--)
+	{
+		if(value <= limits[k])
+			break;
+		else
+		 k++;
+	}
+	return j;
+}
+
 
 void heaterLoadParameter()
 {
@@ -121,7 +160,7 @@ void heaterLoadParameter()
 	char hIndex;
 	char temperature;
 	char humidity;
-	unsigned char duty;
+	unsigned short duty;
 
 	if (!gHeaterData.mAuto)
 		return;
@@ -131,10 +170,12 @@ void heaterLoadParameter()
 
 
 	tIndex = indexForValue(temperature, conHeaterDutyTableTemperature, sizeof(conHeaterDutyTableTemperature) / sizeof(conHeaterDutyTableTemperature[0]));
-	hIndex = indexForValue(humidity, conHeaterDutyTableHumidity, sizeof(conHeaterDutyTableHumidity) / sizeof(conHeaterDutyTableHumidity[0]));
+	hIndex = humidityIndexForValue(humidity, conHeaterDutyTableHumidity, sizeof(conHeaterDutyTableHumidity) / sizeof(conHeaterDutyTableHumidity[0]));
 
 	duty = conHeaterDutyTable[hIndex][tIndex];
-	heaterSetParamter(33, duty * 5 / 3);
+	
+	heaterSetParamter(2, duty * 5 / 3);
+//	heaterSetParamter(2, 90);
 }
 
 
@@ -142,7 +183,7 @@ void heaterInit()
 {
 	gHeaterData.mCount = 0;
 	heaterSetParamter(100, 50);
-
+	
 	gHeaterData.mTick = 0;
 	heaterEnable(1);
 	heaterAutoUpdate(1);

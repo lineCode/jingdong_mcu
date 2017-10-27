@@ -52,6 +52,7 @@ Includes
 #include "heater.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
+#include "infrared_monitor.h"
 
 /***********************************************************************************************************************
 Global variables and functions
@@ -108,7 +109,7 @@ void main(void)
 	heaterInit();
 	signalInit();
 	sensorADCInit();
-
+	infrared_threshold_adjust_init();
 	timeInit();
 	R_ADC_Set_OperationOn();
 
@@ -129,6 +130,7 @@ void main(void)
 
 		mcuStateRun();
 		heaterRun();
+		infrared_threshold_adjust_run();
 		//	test_time();
 		//	test_uart2();
 	}

@@ -63,12 +63,21 @@ unsigned short gCamera0PhotoDegree;
 unsigned short gCamera1PhotoDegree;
 unsigned char  gAS5600I2CErrorCount;
 
+unsigned short angleSpeed;
+unsigned short angleSpeed1;
+
 static volatile unsigned char gAS5600I2CFlag;
 
 static AS5600_OP_STATE gAS5600OpState;
 static unsigned short gAS5600OpTick;
 static unsigned short gAS5600WatchDogTick;
 static unsigned char  gAS5600I2CBuffer[2];
+
+static unsigned short angleTemp0 = 0;
+static unsigned short angleTemp1 = 0;
+static unsigned short angleTemp0Tick = 0;
+static unsigned short angleTemp1Tick = 0;
+
 
 extern void IIC_Init(void);
 extern void IIC_start();
@@ -153,6 +162,8 @@ static void as5600OpStateMachine()
 {
 #ifdef USB_AS5600_I2C
 
+ unsigned short tmp = 0; 
+
 	if (!overTickCount(gAS5600OpTick, 5))
 		return;
 
@@ -170,6 +181,21 @@ static void as5600OpStateMachine()
 
 	gAS5600AngleRaw = (((unsigned short)gAS5600I2CBuffer[0]) << 8) | (gAS5600I2CBuffer[1]);
 	gAS5600WatchDogTick = getTickCount();
+	
+//	tmp = (gAS5600AngleRaw + 4096 - gAS5600StartAngleRaw) % 4096;
+//	if (tmp > 4096 / 2)
+//		tmp = 4096 - tmp;
+//
+//	angleTemp0 = (unsigned short)(((unsigned long)tmp) * 3600 / 4096);
+	
+//	if(angleTemp0 < 45 && angleTemp1 > 45){
+	//	angleTemp1 = gAS5600AngleRaw;
+//		angleSpeed = ((angleTemp1 - angleTemp0) * 1000)/5;
+	//	angleTemp1 = 0;
+//	}
+//	angleTemp1 = angleTemp0;
+		
+
 
 	doorCalibratorMachine(gAS5600AngleRaw);
 
@@ -281,10 +307,17 @@ static void as5600DegreeProcess()
 		raw = 4096 - raw;
 
 	degree = (unsigned short)(((unsigned long)raw) * 3600 / 4096);
-
+	
+	angleTemp0 = degree;
 	if (gAS5600Degree >= gCamera0PhotoDegree && degree <= gCamera0PhotoDegree)
 	{
 		sendCamera0Signal();
+		
+		if(gAS5600Degree > degree)
+			angleSpeed = ((gAS5600Degree - degree)*100)/(getTickCount()-angleTemp1Tick);
+	//	angleSpeed = getTickCount() - angleTemp1Tick;
+		//angleSpeed = gAS5600Degree;
+	//	angleSpeed1 = degree;
 	}
 
 
@@ -295,6 +328,16 @@ static void as5600DegreeProcess()
 
 
 	gAS5600Degree = degree;
+	
+	if(gAS5600Degree > gCamera1PhotoDegree)
+		angleTemp1Tick = getTickCount();
+	// if(gAS5600Degree <= gCamera0PhotoDegree && angleTemp0 > gCamera0PhotoDegree){
+		// if(angleTemp1Tick > angleTemp0Tick){
+			// angleSpeed = (angleTemp0 - angleTemp1)/(angleTemp1Tick - angleTemp0Tick);
+		// }
+	// }
+	// angleTemp0 = gAS5600Degree;
+	// angleTemp0Tick = getTickCount();
 }
 
 
@@ -307,6 +350,9 @@ void as5600CloseDoorSignal()
 
 void as5600Init()
 {
+	angleSpeed = 0;
+	angleSpeed1 =0;
+	
 	gAS5600AngleRaw = 0;
 	gAS5600I2CFlag = 0;
 

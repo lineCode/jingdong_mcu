@@ -19,6 +19,7 @@ Revision History:
 #include "uart_manager.h"
 #include "fgcp.h"
 #include "heater.h"
+#include "infrared_monitor.h"
 
 extern unsigned char checkFirmwareGUID(unsigned char *guid);
 extern unsigned char setFirmwareFlagAndReset();
@@ -48,9 +49,17 @@ static void androidSetMCUParameter(FGCP_DATA_HEADR * header)
 	value = data[1];
 	value = value << 8;
 	value += data[0];
-	if (value > 0)
+	if ((value > 0) && (value != 0xFFFF))
 	{
 		gInfraredHumanValve = value;
+		if(get_infrared_auto_adjust() == 0)
+		{
+			infrared_auto_adjust(1);
+		}
+	}
+	else if(value == 0xFFFF)
+	{
+		infrared_auto_adjust(0);
 	}
 
 	value = data[3];

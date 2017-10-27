@@ -18,6 +18,7 @@ Revision History:
 #include "signal_control.h"
 #include "sensor_map.h"
 #include "r_cg_adc.h"
+#include "infrared_monitor.h"
 
 typedef enum tagSENSOR_ADC_OP_STATE
 {
@@ -52,6 +53,7 @@ typedef enum tagINFRARED_STATE
 	INFRARED_STATE_IDLE,
 	INFRARED_STATE_HUMAN,
 	INFRARED_STATE_HUMAN_SIGNAL_END,
+	INFRARED_STATE_DISABLE,
 
 } INFRARED_STATE;
 
@@ -145,6 +147,12 @@ static void sensorInfraredProcess()
 			gInfraredState = INFRARED_STATE_IDLE;
 		}
 		break;
+	case INFRARED_STATE_DISABLE:
+		if(gInfraredMonitor.Enable)
+		{
+			gInfraredState = INFRARED_STATE_IDLE;
+		}
+		break;
 
 	case INFRARED_STATE_IDLE:
 	default:
@@ -152,6 +160,10 @@ static void sensorInfraredProcess()
 		{
 			gInfraredState = INFRARED_STATE_HUMAN;
 			gInfraredHumanTick = getTickCount();
+		}
+		if(gInfraredMonitor.Enable == 0)
+		{
+			gInfraredState = INFRARED_STATE_DISABLE;
 		}
 		break;
 
@@ -210,7 +222,7 @@ static void sensorADCOpStateMachine()
 			gSensorADCOpState = SENSOR_ADC_OP_STATE_HUMIDITY;
 			gHumidityADCTick = getTickCount();
 		}
-		else if (overTickCount(gInfraredADCTick, 100))
+		else if (overTickCount(gInfraredADCTick, 100) && (gInfraredMonitor.Auto == 1))
 		{
 			R_ADC_Stop();
 			ADS = _02_AD_INPUT_CHANNEL_2;
@@ -274,7 +286,7 @@ void sensorADCInit()
 
 	gInfraredHumanValve = 12 * 1024 / 33;//1.2V--372 //248; //0.8 0.8/3.3 * 1024;
 
-	gInfraredHumanDistanceTick = 1000;
+	gInfraredHumanDistanceTick = 0;
 	gInfraredHumanTick = 0;
 
 	gTemperatureSensorADCValue = 560; //1819 - 20

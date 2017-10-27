@@ -171,7 +171,7 @@ void signalRun()
 
 	if (gSignalFlag & SIGNAL_RESET)
 	{
-		if (overTickCount(gSignalResetTick, 10))
+		if (overTickCount(gSignalResetTick, 2000))
 		{
 			setResetSignalPin(0);
 			gSignalFlag &= (unsigned char)(~(SIGNAL_RESET));

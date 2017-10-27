@@ -3448,7 +3448,7 @@ cl0rmf.lib
     &lt;PIOR4Value Name="PIOR4Value" Text="0" /&gt;
     &lt;PIOR5Value Name="PIOR5Value" Text="0" /&gt;
     &lt;ProjectName Name="PrjName" Text="R5F100BD-32PIN-BOOT" /&gt;
-    &lt;ProjectPath Name="PrjPath" Text="D:\Solutions\R5F100BD-32PIN-TEST\R5F100BD-32PIN-BOOT" /&gt;
+    &lt;ProjectPath Name="PrjPath" Text="C:\Users\gezi\jingdong_mcu\R5F100BD-32PIN-BOOT" /&gt;
     &lt;ProjectKind Name="PrjKind" Text="Project78K0R" /&gt;
     &lt;DeviceName Name="DeviceName" Fixed="" Text="RL78G13" /&gt;
     &lt;MCUName Name="MCUName" Text="RL78G13_32pin" /&gt;

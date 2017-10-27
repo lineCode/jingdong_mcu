@@ -229,7 +229,7 @@ void createFGCPMessage(unsigned char *messageBuf, unsigned char messageType, uns
 	header->mLength = (FGCP_PACKAGE_INFO_BYTES - 1) + dataLength;
 	header->mAppliances = 0xCA;
 	header->mFrameSyncCheck = header->mLength ^ header->mAppliances;
-	header->mReserve1 = 0;
+	header->mReserve1 = 1;
 	header->mReserve2 = 0;
 	header->mMessageId = 0;
 	header->mFrameworkVersion = 0;
