@@ -10,12 +10,14 @@ Wisky.2017.10.10
 #ifndef _INFRARED_MONITOR_H
 #define	_INFRARED_MONITOR_H
 
-#define	 SAMPLE_DATA_SIZE		(180000 / 200)
-#define	 SMAPLE_DATA_TIME		3	// 3 * 60s  = 3 Min
+#define	 SAMPLE_DATA_SIZE		(60000 / 200)
+//#define	 SMAPLE_DATA_TIME		3	// 3 * 60s  = 3 Min
 
-#define	 INFRARED_THRESHOLD_30CM	556
-#define	 INFRARED_THRESHOLD_55CM	334
-
+#define	 INFRARED_THRESHOLD_30CM	612//556   //612
+#define	 INFRARED_THRESHOLD_55CM	355//334   //355
+#define  INFRARED_THRESHOLD_40CM	468
+#define  INFRARED_THRESHOLD_70CM	285
+#define  INFRARED_THRESHOLD_50CM	372
 
 typedef struct infrared_threshold
 {
@@ -39,7 +41,7 @@ extern unsigned short last_var_value;
 extern unsigned short last_avg_value;
 extern unsigned short last_count;
 extern unsigned short last_temp;
-extern unsigned short cycle_count;
+//extern unsigned short cycle_count;
 
 
 //extern unsigned short long_lenth;

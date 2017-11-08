@@ -20,6 +20,8 @@ Revision History:
 #include "r_cg_adc.h"
 #include "infrared_monitor.h"
 
+#include <math.h>
+
 typedef enum tagSENSOR_ADC_OP_STATE
 {
 	SENSOR_ADC_OP_STATE_IDLE,
@@ -46,7 +48,9 @@ static unsigned short gTemperatureADCTick;
 static unsigned short gHumidityADCTick;
 static unsigned short gInfraredADCTick;
 
+static unsigned short gLastInfraredSensorADCValue;
 
+unsigned short gVar; // for test
 
 typedef enum tagINFRARED_STATE
 {
@@ -119,6 +123,23 @@ void timer0_callback()
 	}
 
 	gTimer0HumidityCount++;
+}
+
+static unsigned char infraredADCValueInterfereFilter()
+{
+	unsigned short var = 0;
+	unsigned short last_val = gLastInfraredSensorADCValue;
+	unsigned short new_val = gInfraredSensorADCValue;
+	unsigned short avg = (last_val + new_val) / 2;
+	
+	var = sqrt((((last_val - avg) * (last_val - avg)) + ((new_val - avg) * (new_val - avg))) / 2);
+	
+	gVar = var;
+	
+	if(var > 80)
+		return 0;//fail
+	else
+		return 1;//success
 }
 
 
@@ -264,7 +285,13 @@ static void sensorADCOpStateMachine()
 			R_ADC_Stop();
 
 			gInfraredSensorADCValue = adcResult;
-			sensorInfraredProcess();
+			
+			if(infraredADCValueInterfereFilter() == 1)
+			{
+				sensorInfraredProcess();
+			}
+			
+			gLastInfraredSensorADCValue = gInfraredSensorADCValue;
 
 			gSensorADCOpState = SENSOR_ADC_OP_STATE_IDLE;
 		}
@@ -285,7 +312,7 @@ void sensorADCInit()
 	gInfraredState = INFRARED_STATE_IDLE;
 
 	gInfraredHumanValve = 12 * 1024 / 33;//1.2V--372 //248; //0.8 0.8/3.3 * 1024;
-
+	//gInfraredHumanValve = 355; // 55cm
 	gInfraredHumanDistanceTick = 0;
 	gInfraredHumanTick = 0;
 
@@ -298,6 +325,10 @@ void sensorADCInit()
 
 	gTimer0HumidityCount = 0;
 	gHumidityADCState = HUMIDITY_ADC_STATE_INIT;
+	
+	gLastInfraredSensorADCValue = 0;
+	
+	gVar = 0;
 }
 
 

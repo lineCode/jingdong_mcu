@@ -87,6 +87,8 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 
 	value = gAS5600Degree;
 	//value = last_count;
+	//value = last_var_value;
+	//value = last_avg_value;
 	dataBuf[2] = (unsigned char)value;
 	dataBuf[3] = (unsigned char)(value >> 8);
 
@@ -100,6 +102,7 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 	dataBuf[7] = (unsigned char)(value >> 8);
 
 	value = gAS5600AngleRaw;
+	//value = last_avg_value;
 	//value = last_avg_value;
 	dataBuf[8] = (unsigned char)value;
 	dataBuf[9] = (unsigned char)(value >> 8);
@@ -129,7 +132,7 @@ static void fill_0x78_MessageData(unsigned char *messageBuf)
 		dataBuf[19] = temp; 
 		//((gHeaterData.mDuty * 100) / gHeaterData.mPeriod);
 	}
-	//dataBuf[18] = (unsigned char)(last_var_value >> 8);
+	//dataBuf[18] = (unsigned char)gVar;
 	//dataBuf[19] = (unsigned char)last_var_value;
 }
 

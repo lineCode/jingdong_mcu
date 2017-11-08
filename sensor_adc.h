@@ -23,4 +23,6 @@ extern unsigned short gInfraredSensorADCValue;
 extern unsigned short gInfraredHumanValve;
 extern unsigned short gInfraredHumanDistanceTick;
 
+extern unsigned short gVar;
+
 #endif

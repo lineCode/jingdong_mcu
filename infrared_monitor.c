@@ -27,7 +27,7 @@ unsigned short last_count;
 
 //unsigned short long_lenth;
 
-unsigned short cycle_count;
+//unsigned short cycle_count;
 
 INFRARED_MONITOR_DATA gInfraredMonitor;
 
@@ -132,19 +132,20 @@ void infrared_threshold_adjust(void)
 	}
 	//adjust infrared threshold value according to avg 
 
-	if (gInfraredMonitor.avg >= INFRARED_THRESHOLD_30CM)// distance <= 30 cm
+	if (gInfraredMonitor.avg >= INFRARED_THRESHOLD_40CM)// distance <= 30 cm
 	{ 
-		//close infrared wake up  
+		//disable infrared wake up  
+		set_infrared_threshold_value(INFRARED_THRESHOLD_30CM);
 		infrared_wakeup_enable(0);
 	}
-	else if ((INFRARED_THRESHOLD_55CM <= gInfraredMonitor.avg) && (gInfraredMonitor.avg < INFRARED_THRESHOLD_30CM))// 30 cm < avg < 55cm
+	else if ((INFRARED_THRESHOLD_70CM < gInfraredMonitor.avg) && (gInfraredMonitor.avg < INFRARED_THRESHOLD_40CM))// 30 cm < avg < 55cm
 	{ 
 		set_infrared_threshold_value(INFRARED_THRESHOLD_30CM);
 		infrared_wakeup_enable(1);
 	}
-	else if (gInfraredMonitor.avg < INFRARED_THRESHOLD_55CM)	// > 55cm 
+	else if (gInfraredMonitor.avg <= INFRARED_THRESHOLD_70CM)	// > 55cm 
 	{ 
-		set_infrared_threshold_value(INFRARED_THRESHOLD_55CM);
+		set_infrared_threshold_value(INFRARED_THRESHOLD_50CM);
 		infrared_wakeup_enable(1);
 	}
 
@@ -170,7 +171,7 @@ void infrared_threshold_adjust_init(void)
 	last_var_value = 0;
 	last_avg_value = 0;
 	
-	cycle_count = 0;	
+	//cycle_count = 0;	
 	last_count = 0;
 	last_temp = 0;
 	
@@ -190,13 +191,13 @@ void infrared_data_sampling(void)
 
 void infrared_adjust_func(void)
 {
-	cycle_count++;
-	if(cycle_count == SMAPLE_DATA_TIME)//3 min
-	{
-		cycle_count = 0;
-		infrared_threshold_adjust();
-		infrared_data_init();
-	}
+	//cycle_count++;
+	//if(cycle_count == SMAPLE_DATA_TIME)//3 min
+	//{
+	//	cycle_count = 0;
+	infrared_threshold_adjust();
+	infrared_data_init();
+	//}
 }
 
 
